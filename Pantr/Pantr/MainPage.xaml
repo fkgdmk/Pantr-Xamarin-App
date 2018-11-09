@@ -6,7 +6,7 @@
 
     <StackLayout>
         <!-- Place new controls here -->
-        <Label Text="Så kører vi sgu Xamarin Forms!" 
+        <Label Text="Så kører vi sgu Xamarin Forms Commit Commit!" 
            HorizontalOptions="Center"
            VerticalOptions="CenterAndExpand" />
         <Button Text="Click me!" 
