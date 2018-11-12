@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
+
+
 namespace Pantr
 {
     public partial class MainPage : ContentPage
@@ -12,6 +14,7 @@ namespace Pantr
         public MainPage()
         {
             InitializeComponent();
+
         }
     }
 }
