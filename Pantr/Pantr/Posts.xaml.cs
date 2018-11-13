@@ -13,39 +13,52 @@ namespace Pantr
     public partial class Posts : ContentPage
     {
         public Posts()
-        {
-          //  foreach (Post post in GetData())
-           // {
-            //    System.Diagnostics.Debug.WriteLine(post.Address);
-            //}
-
+        { 
             Console.WriteLine("Test?");
             InitializeComponent();
-            Title = "Opslag";
-            Padding = new Thickness(0, 20, 0, 0);
-            var listView = new ListView();
             listView.ItemsSource = DataList;
-            Content = listView;
-
-   
-       
         }
 
-        #region Datalist
+
         ObservableCollection<Post> DataList = new ObservableCollection<Post> {
 
-            new Post{ Address="Stærevej 75", Quantity="En masse", Time="Søndag klokken 16" },
-            new Post{ Address="Hærevej 45", Quantity="En smule", Time="Onsdag klokken 16" },
-            new Post{ Address="Mærevej 25", Quantity="En mellem", Time="Lørdag klokken 16" },
-            new Post{ Address="Mærevej 25", Quantity="En mellem", Time="Lørdag klokken 16" }
+            new Post{Id=1, Address="Stærevej 75", Quantity="En masse", Time="Søndag klokken 16" },
+            new Post{ Id =2, Address="Hærevej 45", Quantity="En smule", Time="Onsdag klokken 16" },
+            new Post{Id = 3, Address="Mærevej 25", Quantity="En mellem", Time="Lørdag klokken 16" },
+            new Post{Id = 4, Address="Mærevej 25", Quantity="En mellem", Time="Lørdag klokken 16" },
+            new Post{Id = 5, Address="Mærevej 25", Quantity="En mellem", Time="Lørdag klokken 16" },
+            new Post{Id = 6, Address="Mærevej 25", Quantity="En mellem", Time="Lørdag klokken 16" },
+            new Post{Id=7, Address="Mærevej 25", Quantity="En mellem", Time="Lørdag klokken 16" },
+            new Post{Id=8, Address="Mærevej 25", Quantity="En mellem", Time="Lørdag klokken 16" },
+            new Post{Id=9, Address="Mærevej 25", Quantity="En mellem", Time="Lørdag klokken 16" }
         };
-        #endregion
 
         public class Post
         {
+            public int Id { get; set; }
             public string Address { get; set; }
             public string Quantity { get; set; }
             public string Time { get; set; }
         }
-	}
+
+        private async void listView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if(e.SelectedItem != null)
+            {
+                ((ListView)sender).SelectedItem = null;
+                var selection = e.SelectedItem as Post;
+                var claim = await DisplayAlert("Du vil gerne hente","post med id " + selection.Id + " som har adressen: " + selection.Address, "OK", "Nej!");
+                if (claim)
+                {
+                    // Kode for hvis et opslag bliver claimed
+
+                }
+                else
+                {
+                    // Opslag ikke taget
+
+                }
+            }
+        }
+    }
 }
