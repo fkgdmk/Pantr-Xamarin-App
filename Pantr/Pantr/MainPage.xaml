@@ -9,7 +9,7 @@
         <Label Text="Så kører vi sgu Xamarin Forms Commit Commit!" 
            HorizontalOptions="Center"
            VerticalOptions="CenterAndExpand" />
-        <Button Text="Click me!" 
+        <Button Text="Click me!" Clicked="Button_Clicked"
                 HorizontalOptions="Center"
                 VerticalOptions="Center" />
     </StackLayout>
