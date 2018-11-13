@@ -11,7 +11,7 @@ namespace Pantr
         {
             InitializeComponent();
 
-            MainPage = new Posts();
+            MainPage = new CreatePost();
         }
 
         protected override void OnStart()
