@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Pantr.CreatePost">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Pantopslag" HorizontalOptions="Center" FontSize="20" VerticalOptions="Center"/>
+            <DatePicker FontSize="14" HorizontalOptions="Center" x:Name="date" Format="dd/MM/yy"></DatePicker>
+            <Label Text="Tidsperiode" HorizontalOptions="Center"/>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <TimePicker FontSize="14" Format="HH:mm" x:Name="startTime"></TimePicker>
+                <Label Text=" - " VerticalOptions="Center"/>
+                <TimePicker FontSize="14" Format="HH:mm" x:Name="endTime"></TimePicker>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                <Entry Keyboard="Numeric" FontSize="14" x:Name="numberOfBags" Placeholder="Antal"></Entry>
+                <Label Text="Poser" FontSize="14" VerticalOptions="Center" HorizontalOptions="Start"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                    <Entry Keyboard="Numeric" FontSize="14" x:Name="numberOfSacks" Placeholder="Antal"></Entry>
+                    <Label Text="Sække" FontSize="14" VerticalOptions="Center" HorizontalOptions="Start"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                <Entry Keyboard="Numeric" x:Name="numberOfBoxes"  FontSize="14" Placeholder="Antal"></Entry>
+                <Label Text="Kasser"  FontSize="14" VerticalOptions="Center" HorizontalOptions="Start"/>
+            </StackLayout>
+            <Picker x:Name="picker" Title="Primære Materialetype" FontSize="14" HorizontalOptions="Center">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Glas</x:String>
+                    <x:String>Plastik</x:String>
+                    <x:String>Metal</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+            </Picker>
+            <Button x:Name="submit" Clicked="submit_Clicked" Text="Slå op"></Button>
+        </StackLayout>
+    </ContentPage.Content>      
+</ContentPage>
