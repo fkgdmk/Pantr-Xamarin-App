@@ -33,7 +33,7 @@
                 </x:Array>
             </Picker.ItemsSource>
             </Picker>
-            <Button x:Name="submit" Clicked="submit_Clicked" Text="Slå op"></Button>
+            <Button x:Name="submit" Clicked="submit_Clicked" Text="Slå op" HorizontalOptions="Center" WidthRequest="120"></Button>
         </StackLayout>
     </ContentPage.Content>      
 </ContentPage>
