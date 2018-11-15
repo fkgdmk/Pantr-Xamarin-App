@@ -13,7 +13,8 @@ namespace Pantr
 
             InitializeComponent();
 
-            MainPage = new Posts();
+            //Kode forslag: PostsPage og CreatePostPage ?
+            MainPage = new ViewPost();
         }
 
         protected override void OnStart()

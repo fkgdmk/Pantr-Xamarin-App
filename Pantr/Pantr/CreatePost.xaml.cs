@@ -27,23 +27,20 @@ namespace Pantr
             string sacks = numberOfSacks.Text;
             string materialType = null;
 
+            //Hvis tidsperioden er sat til mindre end time 
             if (end - start < 3600)
             {
                 DisplayAlert("Fejl", "Perioden skal være en time eller mere", "Cool");
                 return;
             }
 
+            //Hvis der ikke er valgt materiale type
             if (picker.SelectedIndex > -1)
             {
                 materialType = picker.Items[picker.SelectedIndex];
             }
-            try
-            {
-            } catch (Exception)
-            {
 
-            }
-
+            //Hvis der ikke er valgt en mægnde
             if (bags == null && boxes == null && sacks == null)
             {
                 DisplayAlert("Fejl", "Udfyld mængde af pant", "Ok");
