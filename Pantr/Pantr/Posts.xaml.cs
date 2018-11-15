@@ -13,9 +13,11 @@ namespace Pantr
     public partial class Posts : ContentPage
     {
         public Posts()
-        { 
-            InitializeComponent();
+        {
+           InitializeComponent();
+           
             listView.ItemsSource = GetAllPosts;
+            Console.WriteLine(GetAllPosts.GetType());
         }
 
 
@@ -64,25 +66,28 @@ namespace Pantr
         {
             if (e.NewTextValue.Length > 3)
             {
-                ObservableCollection<Post> allRelevantPosts = null;
+                IEnumerable<Post> allRelevantPosts = null;
 
                 try
                 {
-                    allRelevantPosts = (ObservableCollection<Post>)GetAllPosts.Where(x => x.Address.Contains(e.NewTextValue));
+                    Console.WriteLine(GetAllPosts.GetType());
+                    allRelevantPosts = GetAllPosts.Where(x => x.Address.Contains(e.NewTextValue));
                 }
                 catch (Exception ex)
                 {
-
+                    Console.WriteLine("Fanget i try catch!");
+                    Console.WriteLine(ex.Source + " " + ex.Message);
                 }
                 if (allRelevantPosts == null)
                 {
-
-                    listView.ItemsSource = new List<String> { "Vi kunne ikke finde noget pant i dette postnummer!" };
+                    Console.WriteLine("Alle relevant er null");
+               
+               //     listView.ItemsSource = new List<Post> { -1,"","","" };
 
                 }
                 else
                 {
-                    listView.ItemsSource = GetAllPosts.Where(x => x.Address.Contains(e.NewTextValue));
+                    listView.ItemsSource = allRelevantPosts;
                 }
             }
         }
