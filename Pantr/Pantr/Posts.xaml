@@ -6,7 +6,7 @@
              Padding="20,20,20,20">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
-            
+            <Entry x:Name="zipcodeSearch" Keyboard="Numeric" IsTextPredictionEnabled="True" Placeholder="Søg postnummer" FontSize="14" TextChanged="zipcodeSearch_TextChanged" />
             <ListView x:Name="listView" RowHeight="80" ItemSelected="listView_ItemSelected" SeparatorColor="Black">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -15,7 +15,8 @@
                             <Image WidthRequest="50" Source="icon.png"/>
                             <StackLayout Orientation="Vertical">
                             <Label Text="{Binding Quantity}" FontSize="Micro"/>
-                            <Label Text="{Binding Address}" FontSize="Medium"/>
+                            <Label Text="{Binding Address}" FontSize="Small"/>
+                            <Label Text="{Binding Zipcode}" FontSize="Small"/>
                             <Label Text="{Binding Time}" FontSize="Micro"/>
                         </StackLayout>
                         </StackLayout>

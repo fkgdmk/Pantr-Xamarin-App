@@ -13,24 +13,25 @@ namespace Pantr
     public partial class Posts : ContentPage
     {
         public Posts()
-        { 
-            Console.WriteLine("Test?");
-            InitializeComponent();
-            listView.ItemsSource = DataList;
+        {
+           InitializeComponent();
+           
+            listView.ItemsSource = GetAllPosts;
+            Console.WriteLine(GetAllPosts.GetType());
         }
 
 
-        ObservableCollection<Post> DataList = new ObservableCollection<Post> {
+        ObservableCollection<Post> GetAllPosts = new ObservableCollection<Post> {
 
-            new Post{Id=1, Address="Stærevej 75", Quantity="En masse", Time="Søndag klokken 16" },
-            new Post{ Id =2, Address="Hærevej 45", Quantity="En smule", Time="Onsdag klokken 16" },
-            new Post{Id = 3, Address="Mærevej 25", Quantity="En mellem", Time="Lørdag klokken 16" },
-            new Post{Id = 4, Address="Mærevej 25", Quantity="En mellem", Time="Lørdag klokken 16" },
-            new Post{Id = 5, Address="Mærevej 25", Quantity="En mellem", Time="Lørdag klokken 16" },
-            new Post{Id = 6, Address="Mærevej 25", Quantity="En mellem", Time="Lørdag klokken 16" },
-            new Post{Id=7, Address="Mærevej 25", Quantity="En mellem", Time="Lørdag klokken 16" },
-            new Post{Id=8, Address="Mærevej 25", Quantity="En mellem", Time="Lørdag klokken 16" },
-            new Post{Id=9, Address="Mærevej 25", Quantity="En mellem", Time="Lørdag klokken 16" }
+            new Post{Id=1, Address="Stærevej 75 2200", Quantity="En masse", Time="Søndag klokken 16" },
+            new Post{ Id =2, Address="Hærevej 45 2100", Quantity="En smule", Time="Onsdag klokken 16" },
+            new Post{Id = 3, Address="Mærevej 25 2720", Quantity="En mellem", Time="Lørdag klokken 16" },
+            new Post{Id = 4, Address="Mærevej 25 2350", Quantity="En mellem", Time="Lørdag klokken 16" },
+            new Post{Id = 5, Address="Mærevej 25 2470", Quantity="En mellem", Time="Lørdag klokken 16" },
+            new Post{Id = 6, Address="Mærevej 25 2400", Quantity="En mellem", Time="Lørdag klokken 16" },
+            new Post{Id=7, Address="Mærevej 25 2700", Quantity="En mellem", Time="Lørdag klokken 16" },
+            new Post{Id=8, Address="Mærevej 25 2730", Quantity="En mellem", Time="Lørdag klokken 16" },
+            new Post{Id=9, Address="Mærevej 25 2560", Quantity="En mellem", Time="Lørdag klokken 16" }
         };
 
         public class Post
@@ -57,6 +58,36 @@ namespace Pantr
                 {
                     // Opslag ikke taget
 
+                }
+            }
+        }
+
+        private void zipcodeSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (e.NewTextValue.Length > 3)
+            {
+                IEnumerable<Post> allRelevantPosts = null;
+
+                try
+                {
+                    Console.WriteLine(GetAllPosts.GetType());
+                    allRelevantPosts = GetAllPosts.Where(x => x.Address.Contains(e.NewTextValue));
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Fanget i try catch!");
+                    Console.WriteLine(ex.Source + " " + ex.Message);
+                }
+                if (allRelevantPosts == null)
+                {
+                    Console.WriteLine("Alle relevant er null");
+               
+               //     listView.ItemsSource = new List<Post> { -1,"","","" };
+
+                }
+                else
+                {
+                    listView.ItemsSource = allRelevantPosts;
                 }
             }
         }
