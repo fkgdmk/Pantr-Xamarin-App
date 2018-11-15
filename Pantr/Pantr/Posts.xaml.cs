@@ -17,21 +17,20 @@ namespace Pantr
            InitializeComponent();
            
             listView.ItemsSource = GetAllPosts;
-            Console.WriteLine(GetAllPosts.GetType());
         }
 
 
         ObservableCollection<Post> GetAllPosts = new ObservableCollection<Post> {
 
-            new Post{Id=1, Address="Stærevej 75 2200", Quantity="En masse", Time="Søndag klokken 16" },
-            new Post{ Id =2, Address="Hærevej 45 2100", Quantity="En smule", Time="Onsdag klokken 16" },
-            new Post{Id = 3, Address="Mærevej 25 2720", Quantity="En mellem", Time="Lørdag klokken 16" },
-            new Post{Id = 4, Address="Mærevej 25 2350", Quantity="En mellem", Time="Lørdag klokken 16" },
-            new Post{Id = 5, Address="Mærevej 25 2470", Quantity="En mellem", Time="Lørdag klokken 16" },
-            new Post{Id = 6, Address="Mærevej 25 2400", Quantity="En mellem", Time="Lørdag klokken 16" },
-            new Post{Id=7, Address="Mærevej 25 2700", Quantity="En mellem", Time="Lørdag klokken 16" },
-            new Post{Id=8, Address="Mærevej 25 2730", Quantity="En mellem", Time="Lørdag klokken 16" },
-            new Post{Id=9, Address="Mærevej 25 2560", Quantity="En mellem", Time="Lørdag klokken 16" }
+            new Post{Id=1, Address="Stærevej 75", Quantity="En masse", Time="Søndag klokken 16", Zipcode = "2200" },
+            new Post{ Id =2, Address="Hærevej 45 2100", Quantity="En smule", Time="Onsdag klokken 16", Zipcode ="2100" },
+            new Post{Id = 3,Address="Mærevej 25", Quantity="En mellem", Time="Lørdag klokken 16" , Zipcode = "2720"},
+            new Post{Id = 4, Address="Mærevej 25", Quantity="En mellem", Time="Lørdag klokken 16",Zipcode = "2350" },
+            new Post{Id = 5, Address="Mærevej 25", Quantity="En mellem", Time="Lørdag klokken 16",Zipcode = "2560" },
+            new Post{Id = 6, Address="Mærevej 25", Quantity="En mellem", Time="Lørdag klokken 16", Zipcode = "2560" },
+            new Post{Id=7, Address="Mærevej 25 2700", Quantity="En mellem", Time="Lørdag klokken 16" , Zipcode = "2560"},
+            new Post{Id=8, Address="Mærevej 25 2730", Quantity="En mellem", Time="Lørdag klokken 16", Zipcode = "2560" },
+            new Post{Id=9, Address="Mærevej 25 ", Quantity="En mellem", Time="Lørdag klokken 16", Zipcode = "2560" }
         };
 
         public class Post
@@ -40,6 +39,7 @@ namespace Pantr
             public string Address { get; set; }
             public string Quantity { get; set; }
             public string Time { get; set; }
+            public string Zipcode { get; set; }
         }
 
         private async void listView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -64,6 +64,11 @@ namespace Pantr
 
         private void zipcodeSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (e.NewTextValue.Length == 0)
+            {
+                listView.ItemsSource = GetAllPosts;
+            }
+
             if (e.NewTextValue.Length > 3)
             {
                 IEnumerable<Post> allRelevantPosts = null;
@@ -82,7 +87,7 @@ namespace Pantr
                 {
                     Console.WriteLine("Alle relevant er null");
                
-               //     listView.ItemsSource = new List<Post> { -1,"","","" };
+                    listView.ItemsSource = new List<Post> { new Post { Id=-1, Address="Der er desværre ikke noget pant", Quantity="" , Time="" } };
 
                 }
                 else

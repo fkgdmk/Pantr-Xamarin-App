@@ -14,11 +14,22 @@
                         <StackLayout Orientation="Horizontal">
                             <Image WidthRequest="50" Source="icon.png"/>
                             <StackLayout Orientation="Vertical">
-                            <Label Text="{Binding Quantity}" FontSize="Micro"/>
-                            <Label Text="{Binding Address}" FontSize="Small"/>
-                            <Label Text="{Binding Zipcode}" FontSize="Small"/>
-                            <Label Text="{Binding Time}" FontSize="Micro"/>
-                        </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Image WidthRequest="10" Source="recyc.png"/>
+                                        <Label Text="{Binding Quantity}" FontSize="Micro"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Image WidthRequest="10" Source="map.png"/>
+                                        <Label Text="{Binding Address}" FontSize="Small"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="{Binding Zipcode}" FontSize="Micro"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Image WidthRequest="10" Source="time.png"/>
+                                        <Label Text="{Binding Time}" FontSize="Micro"/>
+                                    </StackLayout>
+                                </StackLayout>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
