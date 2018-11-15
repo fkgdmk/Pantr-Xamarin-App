@@ -13,7 +13,6 @@ namespace Pantr
 
             InitializeComponent();
 
-            //Kode forslag: PostsPage og CreatePostPage ?
             MainPage = new Posts();
         }
 
