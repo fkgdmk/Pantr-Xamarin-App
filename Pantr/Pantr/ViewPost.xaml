@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Pantr.ViewPost">
     <ContentPage.Content Padding="20, 20, 20, 20">
-        <StackLayout>
+        <StackLayout IsVisible="{Binding noPost}">
             <Image HorizontalOptions="End" x:Name="editBtn" WidthRequest="20" HeightRequest="20" Source="pencil.png" Margin="0, 5, 5, 0">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer
@@ -12,10 +12,22 @@
                 </Image.GestureRecognizers>
             </Image>
             <Image WidthRequest="80" Source="icon.png" HorizontalOptions="Center"/>
-            <Label VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding Quantity}"/>
-            <Label VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding Address}"/>
-            <Label VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding Date}"/>
-            <Label VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding Time}"/>
+            <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
+                <Image WidthRequest="12" Source="recyc.png"/>
+                <Label Text="{Binding Quantity}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
+                <Image WidthRequest="12" Source="map.png"/>
+                <Label VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding Address}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
+                <Image WidthRequest="12" Source="time.png"/>
+                <Label VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding Date}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
+                <Image WidthRequest="12" Source="time.png"/>
+                <Label VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding Time}"/>
+            </StackLayout>
             <Button Text="Annuller" x:Name="submit" Clicked="submit_Clicked" HorizontalOptions="Center" Margin="0, 40, 0, 0" WidthRequest="120"></Button>
         </StackLayout>
     </ContentPage.Content>
