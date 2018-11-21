@@ -9,12 +9,10 @@ namespace Pantr
     {
         public App()
         {
-
-
             InitializeComponent();
 
             //Kode forslag: PostsPage og CreatePostPage ?
-            MainPage = new ViewPost();
+            MainPage = new Login();
         }
 
         protected override void OnStart()

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Pantr.Login">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="Center">
+            <Entry Placeholder="Brugernavn"
+                   WidthRequest="200"
+                   FontSize="20"
+                   x:Name="username"/>
+            <Entry Placeholder="Kodeord"
+                   IsPassword="True"
+                   WidthRequest="200"
+                   FontSize="20"
+                   x:Name="userPassword"/>
+            <Label Text="Registrér her"
+                   HorizontalOptions="End"
+                   FontSize="13"
+                   TextDecorations="Underline"
+                   TextColor="Blue"
+                   x:Name="registerButton"/>
+
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
