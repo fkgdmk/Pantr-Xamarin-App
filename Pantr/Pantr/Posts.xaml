@@ -3,31 +3,32 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Pantr.Posts"
              Title="Pantopslag"
-             Padding="20,20,20,20">
+             Padding="20,5,20,20">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical">
+        <StackLayout Orientation="Vertical" Margin="0,0,0,0" Padding="0,0,0,0">
             <Entry x:Name="zipcodeSearch" Keyboard="Numeric" IsTextPredictionEnabled="True" Placeholder="Søg postnummer" FontSize="14" TextChanged="zipcodeSearch_TextChanged" />
-            <ListView x:Name="listView" RowHeight="80" ItemSelected="listView_ItemSelected" SeparatorColor="Black">
+            <ListView x:Name="listView" RowHeight="85" ItemSelected="listView_ItemSelected" SeparatorColor="Black" IsPullToRefreshEnabled="True">
             <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
+                <DataTemplate >
+                    <ViewCell >
                         <StackLayout Orientation="Horizontal">
                             <Image WidthRequest="50" Source="icon.png"/>
-                            <StackLayout Orientation="Vertical">
-                                    <StackLayout Orientation="Horizontal">
-                                        <Image WidthRequest="10" Source="recyc.png"/>
-                                        <Label Text="{Binding Quantity}" FontSize="Micro"/>
+                                <StackLayout Orientation="Vertical"  Padding="0,0,0,0"  VerticalOptions="Center">
+                                    <StackLayout Orientation="Horizontal" >
+                                        <Image WidthRequest="10" Source="recyc.png" Margin="0,-2,0,-2"/>
+                                        <Label Text="{Binding Quantity}" FontSize="Micro" Margin="0,-2,0,-2"/>
                                     </StackLayout>
                                     <StackLayout Orientation="Horizontal">
-                                        <Image WidthRequest="10" Source="map.png"/>
-                                        <Label Text="{Binding Address}" FontSize="Small"/>
+                                        <Image WidthRequest="10" Source="map.png" Margin="0,-2,0,-2"/>
+                                        <Label Text="{Binding Address}" FontSize="Small" Margin="0,-2,0,-2"/>
                                     </StackLayout>
                                     <StackLayout Orientation="Horizontal">
-                                        <Label Text="{Binding Zipcode}" FontSize="Micro"/>
+                                        <Image WidthRequest="10" Source="recyc.png" Opacity="0" Margin="0,-2,0,-2"/>
+                                        <Label Text="{Binding Zipcode}" FontSize="Micro" Margin="0,-2,0,-2"/>
                                     </StackLayout>
                                     <StackLayout Orientation="Horizontal">
-                                        <Image WidthRequest="10" Source="time.png"/>
-                                        <Label Text="{Binding Time}" FontSize="Micro"/>
+                                        <Image WidthRequest="10" Source="time.png" Margin="0,-2,0,-2"/>
+                                        <Label Text="{Binding Time}" FontSize="Micro" Margin="0,-2,0,-2"/>
                                     </StackLayout>
                                 </StackLayout>
                         </StackLayout>

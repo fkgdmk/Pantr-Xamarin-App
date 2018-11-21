@@ -1,11 +1,14 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+
 
 namespace Pantr
 {
@@ -22,21 +25,28 @@ namespace Pantr
 
         ObservableCollection<Post> GetAllPosts = new ObservableCollection<Post> {
 
-            new Post{Id=1, Address="Stærevej 75", Quantity="En masse", Time="Søndag klokken 16", Zipcode = "2200" },
-            new Post{ Id =2, Address="Hærevej 45 2100", Quantity="En smule", Time="Onsdag klokken 16", Zipcode ="2100" },
-            new Post{Id = 3,Address="Mærevej 25", Quantity="En mellem", Time="Lørdag klokken 16" , Zipcode = "2720"},
-            new Post{Id = 4, Address="Mærevej 25", Quantity="En mellem", Time="Lørdag klokken 16",Zipcode = "2350" },
-            new Post{Id = 5, Address="Mærevej 25", Quantity="En mellem", Time="Lørdag klokken 16",Zipcode = "2560" },
-            new Post{Id = 6, Address="Mærevej 25", Quantity="En mellem", Time="Lørdag klokken 16", Zipcode = "2560" },
-            new Post{Id=7, Address="Mærevej 25 2700", Quantity="En mellem", Time="Lørdag klokken 16" , Zipcode = "2560"},
-            new Post{Id=8, Address="Mærevej 25 2730", Quantity="En mellem", Time="Lørdag klokken 16", Zipcode = "2560" },
-            new Post{Id=9, Address="Mærevej 25 ", Quantity="En mellem", Time="Lørdag klokken 16", Zipcode = "2560" }
+            new Post{Id=1, Address="Enmeget Lang testAddresse 44", Quantity="En masse", Time="Søndag klokken 16", Zipcode = "2200" },
+            new Post{Id=2, Address="Tokevejeveve14", Quantity="En smule", Time="Onsdag klokken 16", Zipcode ="2100" },
+            new Post{Id=3, Address="Charlottenlund Stationsplads 22", Quantity="En mellem", Time="Lørdag klokken 16" , Zipcode = "2720"},
+            new Post{Id=4, Address="Tokevejevevevv16", Quantity="En mellem", Time="Lørdag klokken 16",Zipcode = "2350" },
+            new Post{Id=5, Address="Tokevejevevevve17", Quantity="En mellem", Time="Lørdag klokken 16",Zipcode = "2560" },
+            new Post{Id=6, Address="Borgmester Christiansens Gade 123", Quantity="En mellem", Time="Lørdag klokken 16", Zipcode = "2560" },
+            new Post{Id=7, Address="Tokevejevevevveve19", Quantity="En mellem", Time="Lørdag klokken 16" , Zipcode = "2560"},
+            new Post{Id=8, Address="Lygten 22", Quantity="En mellem", Time="Lørdag klokken 16", Zipcode = "2560" },
+            new Post{Id=9, Address="Stærevej 10", Quantity="En mellem", Time="Lørdag klokken 16", Zipcode = "2560" },
+            new Post{Id=9, Address="Borgmester Jakob Jensens Gade 33", Quantity="En mellem", Time="Lørdag klokken 16", Zipcode = "2560" }
+
         };
 
         public class Post
         {
             public int Id { get; set; }
             public string Address { get; set; }
+            public string[] AddresChunks
+            {
+                get { return AddresChunks; }
+                set { this.Address.Split(' '); }
+            }
             public string Quantity { get; set; }
             public string Time { get; set; }
             public string Zipcode { get; set; }
@@ -44,14 +54,36 @@ namespace Pantr
 
         private async void listView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            if(e.SelectedItem != null)
+            if (e.SelectedItem != null)
             {
                 ((ListView)sender).SelectedItem = null;
                 var selection = e.SelectedItem as Post;
-                var claim = await DisplayAlert("Du vil gerne hente","post med id " + selection.Id + " som har adressen: " + selection.Address, "OK", "Nej!");
-                if (claim)
+                var claimed = await DisplayAlert("Du vil gerne hente", "post med id " + selection.Id + " som har adressen: " + selection.Address, "OK", "Nej!");
+                if (claimed)
                 {
+                    Console.WriteLine("åh?");
+                
                     // Kode for hvis et opslag bliver claimed
+
+                    HttpClient client = new HttpClient();
+
+                    Console.WriteLine("åh? igen");
+
+
+                    client.MaxResponseContentBufferSize = 256000;
+
+                    Console.WriteLine("åh 3?");
+
+
+                    //var json = JsonConvert.SerializeObject(selection);
+                   // Console.WriteLine(json);
+
+                    var content = new StringContent("{'Claimed' : True }", Encoding.UTF8, "application/json");
+
+                    Console.WriteLine(content);
+
+
+                    var response = await client.PutAsync("http://localhost:50001/api/put/"+selection.Id, content);
 
                 }
                 else
