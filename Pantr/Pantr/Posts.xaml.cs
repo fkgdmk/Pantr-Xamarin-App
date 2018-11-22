@@ -3,9 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Android.Net;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -17,14 +20,56 @@ namespace Pantr
     {
         public Posts()
         {
-           InitializeComponent();
-           
-            listView.ItemsSource = GetAllPosts;
+            InitializeComponent();
+          //   listView.ItemsSource = Test;
+            Console.WriteLine("11111111111111111111111111");
+            try
+            {
+                Console.WriteLine("222222222222222222222222");
+                GetAllPosts(listView);
+                Console.WriteLine("2,55555555555555555555555");
+            } catch (Exception e)
+            {
+                Console.WriteLine("3333333333333333333333333333");
+                Console.WriteLine("Whaaaaaaaaaaaaaat?");
+                Console.WriteLine(e.StackTrace);
+            }
+        }
+
+        public async void GetAllPosts2()
+        {
+            var client = new HttpClient(new AndroidClientHandler());
+
+            var response = await client.GetAsync("http://192.168.0.22:45457/api/posts");
+            var content = await response.Content.ReadAsStringAsync();
+            Console.WriteLine(content);
+            //var result = JsonConvert.DeserializeObject(content);
         }
 
 
-        ObservableCollection<Post> GetAllPosts = new ObservableCollection<Post> {
+        public async void GetAllPosts(ListView listView)
+        {
+            using (var client = new HttpClient())
+            {
+                try
+                {
+                    using (var r = await client.GetAsync(new Uri(String.Format("http://192.168.0.22:45457/api/posts", String.Empty))))
+                    {
+                        string result = await r.Content.ReadAsStringAsync();
+                        Console.WriteLine(result);
+                    }
 
+                }
+                catch (Exception e) {
+                    Console.WriteLine("=!=!=!=!=!=!=!=!=!=!=!=!");
+                    Console.WriteLine(e.StackTrace);
+                }
+            }
+
+//            listView.ItemsSource = null;
+        }
+
+        ObservableCollection<Post> Test = new ObservableCollection<Post> {
             new Post{Id=1, Address="Enmeget Lang testAddresse 44", Quantity="En masse", Time="Søndag klokken 16", Zipcode = "2200" },
             new Post{Id=2, Address="Tokevejeveve14", Quantity="En smule", Time="Onsdag klokken 16", Zipcode ="2100" },
             new Post{Id=3, Address="Charlottenlund Stationsplads 22", Quantity="En mellem", Time="Lørdag klokken 16" , Zipcode = "2720"},
@@ -52,7 +97,7 @@ namespace Pantr
             public string Zipcode { get; set; }
         }
 
-        private async void listView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem != null)
             {
@@ -94,11 +139,11 @@ namespace Pantr
             }
         }
 
-        private void zipcodeSearch_TextChanged(object sender, TextChangedEventArgs e)
+        private void ZipcodeSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (e.NewTextValue.Length == 0)
             {
-                listView.ItemsSource = GetAllPosts;
+             //   listView.ItemsSource = GetAllPosts;
             }
 
             if (e.NewTextValue.Length > 3)
@@ -107,8 +152,8 @@ namespace Pantr
 
                 try
                 {
-                    Console.WriteLine(GetAllPosts.GetType());
-                    allRelevantPosts = GetAllPosts.Where(x => x.Address.Contains(e.NewTextValue));
+//                    Console.WriteLine(GetAllPosts.GetType());
+  //                  allRelevantPosts = GetAllPosts.Where(x => x.Address.Contains(e.NewTextValue));
                 }
                 catch (Exception ex)
                 {
