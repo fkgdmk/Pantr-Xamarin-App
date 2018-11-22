@@ -3,54 +3,59 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Pantr.Register">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical" Padding="20">
-            <StackLayout Orientation="Vertical" Padding="0,0,0,40">
-                <Entry Placeholder="Brugernavn"
+        <ScrollView>
+            <StackLayout Orientation="Vertical" Padding="20">
+                <StackLayout Orientation="Vertical" Padding="0,0,0,40">
+                    <Entry Placeholder="Brugernavn"
                    x:Name="userNameRegister"/>
 
-                <Entry Placeholder="Kodeord"
+                    <Entry Placeholder="Kodeord"
                    x:Name="password"
                    IsPassword="True"/>
 
-                <Entry Placeholder="Gentag kodeord"
+                    <Entry Placeholder="Gentag kodeord"
                    x:Name="confirmPassword"
                    TextChanged="confirmPassword_TextChanged"
                    IsPassword="True"/>
-            </StackLayout>
-            
-            
-            <Entry Placeholder="Fornavn"
+                </StackLayout>
+
+
+                <Entry Placeholder="Fornavn"
                    x:Name="firstName"/>
 
-            <Entry Placeholder="Efternavn"
+                <Entry Placeholder="Efternavn"
                    x:Name="surname"/>
 
-            <Entry Placeholder="E-mail"
+                <Entry Placeholder="E-mail"
                    x:Name="email"
                    Keyboard="Email"/>
 
-            <Entry Placeholder="Telefonnummer"
+                <Entry Placeholder="Telefonnummer"
                    x:Name="phone"
                    Keyboard="Telephone"/>
 
-            <Entry Placeholder="Adresse"
+                <Entry Placeholder="Adresse"
                    x:Name="address"/>
 
-            <StackLayout Orientation="Horizontal">
-                <Switch x:Name="isPanter"/>
-                <Label Text="Panter?"/>
-            </StackLayout>
+                <Entry Placeholder="Postnummer"
+                       x:Name="zip"/>
 
-            <StackLayout Orientation="Horizontal">
-                <Switch x:Name="isAdult"/>
-                <Label Text="Jeg medgiver jeg er over 18 år gammel"/>
-            </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Switch x:Name="isPanter"/>
+                    <Label Text="Panter?"/>
+                </StackLayout>
 
-            <Button Text="Submit"
+                <StackLayout Orientation="Horizontal">
+                    <Switch x:Name="isAdult"/>
+                    <Label Text="Jeg medgiver jeg er over 18 år gammel"/>
+                </StackLayout>
+
+                <Button Text="Submit"
                     HorizontalOptions="End"
                     Clicked="Button_Clicked"
                     x:Name="submitButton"/>
 
-        </StackLayout>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
