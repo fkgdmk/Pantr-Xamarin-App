@@ -13,12 +13,15 @@
                    WidthRequest="200"
                    FontSize="20"
                    x:Name="userPassword"/>
+            <!--Adder padding til et label-->
+            <ContentView Padding="10">
             <Label Text="Registrér her"
                    HorizontalOptions="End"
                    FontSize="13"
                    TextDecorations="Underline"
                    TextColor="Blue"
                    x:Name="registerButton"/>
+            </ContentView>
 
 
         </StackLayout>

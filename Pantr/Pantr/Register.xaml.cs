@@ -64,14 +64,7 @@ namespace Pantr
             jObject.Add("isAdult", isAdult.IsToggled);
 
 
-            using (HttpClient client = new HttpClient())
-            {
-                var oTaskPostAsync = client.PostAsync(sUrl, new StringContent(jObject.ToString(), Encoding.UTF8, sContentType));
-                oTaskPostAsync.ContinueWith(response =>
-                {
-                DisplayAlert("hallo", response.Result.ToString(), "ok");
-                });
-            }
+            
         }
 
         private byte[] HashString(string inputString)
