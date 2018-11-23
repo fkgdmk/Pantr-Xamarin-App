@@ -44,7 +44,7 @@ namespace Pantr
 
             HttpClient client = new HttpClient();
 
-            var uri = new Uri(string.Format("http://192.168.1.173:45455/api/post/getuserspost/1"));
+            var uri = new Uri(string.Format("http://10.111.180.138:45455//api/post/getuserspost/1"));
 
             var response = await client.GetAsync(uri);
 
