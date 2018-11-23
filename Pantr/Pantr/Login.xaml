@@ -14,15 +14,19 @@
                    FontSize="20"
                    x:Name="userPassword"/>
             <!--Adder padding til et label-->
-            <ContentView Padding="10">
-            <Label Text="Registrér her"
-                   HorizontalOptions="End"
+            <StackLayout Orientation="Horizontal">
+                <ContentView Padding="10">
+                    <Label Text="Registrér her"
+                   HorizontalOptions="Start"
                    FontSize="13"
                    TextDecorations="Underline"
                    TextColor="Blue"
                    x:Name="registerButton"/>
-            </ContentView>
-
+                </ContentView>
+                <Button Text="Login"
+                        Clicked="Button_Clicked"
+                        x:Name="loginButton"
+            </StackLayout>
 
         </StackLayout>
     </ContentPage.Content>
