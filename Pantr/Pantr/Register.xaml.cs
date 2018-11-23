@@ -67,6 +67,8 @@ namespace Pantr
             
         }
 
+
+
         private byte[] HashString(string inputString)
         {
             byte[] data = Encoding.ASCII.GetBytes(inputString);

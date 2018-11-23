@@ -25,7 +25,7 @@
                 </ContentView>
                 <Button Text="Login"
                         Clicked="Button_Clicked"
-                        x:Name="loginButton"
+                        x:Name="loginButton"/>
             </StackLayout>
 
         </StackLayout>
