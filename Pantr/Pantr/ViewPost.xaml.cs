@@ -7,9 +7,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Pantr.Models;
 
 namespace Pantr
 {
@@ -32,26 +32,31 @@ namespace Pantr
             //PostService service = new PostService();
 
             //var test = service.GetUsersPost();
+            Task<PostViewModel> post = GetUsersPost();
 
-            GetUsersPost();
+            Console.WriteLine("hey", post);
+            Console.WriteLine(post.Result);
+
+            BindingContext = post.Result;
 			InitializeComponent ();
 
 		}
 
-        public async void GetUsersPost()
+        public async Task<PostViewModel> GetUsersPost()
         {
             //PostViewModel post = null;
 
             HttpClient client = new HttpClient();
+            PostViewModel post = null;
 
-            var uri = new Uri(string.Format("http://10.111.180.138:45455//api/post/getuserspost/1"));
+            var uri = new Uri(string.Format("http://10.111.180.138:45455/api/post/getuserspost/1"));
 
             var response = await client.GetAsync(uri);
 
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
-                var post = JsonConvert.DeserializeObject<PostViewModel.PostView>(content);
+                post = JsonConvert.DeserializeObject<PostViewModel>(content);
 
                 post.StartTime = FormatTime(post.StartTime);
                 post.EndTime = FormatTime(post.EndTime);
@@ -59,7 +64,10 @@ namespace Pantr
                 //DateTime formatedDate = DateTime.ParseExact(date, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 //post.Date = formatedDate;
 
-                BindingContext = post;
+                return post;
+            } else
+            {
+                return post;
             }
         }
 
