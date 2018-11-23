@@ -53,6 +53,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client">
+      <Version>5.2.6</Version>
+    </PackageReference>
     <PackageReference Include="Xam.Plugin.Iconize">
       <Version>3.4.0.100</Version>
     </PackageReference>

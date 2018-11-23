@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Xamarin.Android.Net;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Pantr.DB;
 
 
 namespace Pantr
@@ -44,6 +45,12 @@ namespace Pantr
             var content = await response.Content.ReadAsStringAsync();
             Console.WriteLine(content);
             //var result = JsonConvert.DeserializeObject(content);
+
+            
+           InitializeComponent();
+           
+        //    listView.ItemsSource = GetAllPosts;
+
         }
 
 

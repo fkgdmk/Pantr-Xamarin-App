@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Pantr.ViewPost">
     <ContentPage.Content Padding="20, 20, 20, 20">
-        <StackLayout IsVisible="{Binding noPost}">
+        <StackLayout>
             <Image HorizontalOptions="End" x:Name="editBtn" WidthRequest="20" HeightRequest="20" Source="pencil.png" Margin="0, 5, 5, 0">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer
@@ -24,9 +24,11 @@
                 <Image WidthRequest="12" Source="time.png"/>
                 <Label VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding Date}"/>
             </StackLayout>
-            <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                 <Image WidthRequest="12" Source="time.png"/>
-                <Label VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding Time}"/>
+                <Label VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding StartTime}"/>
+                <Label Text=" - " VerticalOptions="Center"/>
+                <Label VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding EndTime}"/>
             </StackLayout>
             <Button Text="Annuller" x:Name="submit" Clicked="submit_Clicked" HorizontalOptions="Center" Margin="0, 40, 0, 0" WidthRequest="120"></Button>
         </StackLayout>
