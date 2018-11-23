@@ -53,7 +53,7 @@ namespace Pantr
             {
                 try
                 {
-                    using (var r = await client.GetAsync(new Uri(String.Format("http://192.168.0.22:45457/api/posts", String.Empty))))
+                    using (var r = await client.GetAsync(new Uri("http://10.111.180.139:45455/api/posts")))
                     {
                         string result = await r.Content.ReadAsStringAsync();
                         Console.WriteLine(result);
