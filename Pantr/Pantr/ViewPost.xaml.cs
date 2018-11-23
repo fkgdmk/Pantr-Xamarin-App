@@ -21,10 +21,12 @@ namespace Pantr
             public string Time { get; set; }
         }
 
+        bool noPost = true;
         Post post = new Post { Id = 1, Address = "Lygten 18, 2400 Kbh", Quantity = "1 Kasse", Date="11/12/2018", Time = "10.30-12.00" };
         public ViewPost ()
 		{
             BindingContext = post;
+            BindingContext = noPost;
 			InitializeComponent ();
 		}
 
