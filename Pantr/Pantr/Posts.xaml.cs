@@ -21,13 +21,15 @@ namespace Pantr
     {
         public Posts()
         {
+
             InitializeComponent();
           //   listView.ItemsSource = Test;
             Console.WriteLine("11111111111111111111111111");
             try
             {
                 Console.WriteLine("222222222222222222222222");
-                GetAllPosts(listView);
+                PostService.GetAllPosts(listView);
+                //listView.ItemsSource = Test;
                 Console.WriteLine("2,55555555555555555555555");
             } catch (Exception e)
             {
@@ -54,27 +56,7 @@ namespace Pantr
         }
 
 
-        public async void GetAllPosts(ListView listView)
-        {
-            using (var client = new HttpClient())
-            {
-                try
-                {
-                    using (var r = await client.GetAsync(new Uri("http://10.111.180.139:45455/api/posts")))
-                    {
-                        string result = await r.Content.ReadAsStringAsync();
-                        Console.WriteLine(result);
-                    }
-
-                }
-                catch (Exception e) {
-                    Console.WriteLine("=!=!=!=!=!=!=!=!=!=!=!=!");
-                    Console.WriteLine(e.StackTrace);
-                }
-            }
-
-//            listView.ItemsSource = null;
-        }
+       
 
         ObservableCollection<Post> Test = new ObservableCollection<Post> {
             new Post{Id=1, Address="Enmeget Lang testAddresse 44", Quantity="En masse", Time="Søndag klokken 16", Zipcode = "2200" },
@@ -156,27 +138,14 @@ namespace Pantr
             if (e.NewTextValue.Length > 3)
             {
                 IEnumerable<Post> allRelevantPosts = null;
-
-                try
-                {
-//                    Console.WriteLine(GetAllPosts.GetType());
-  //                  allRelevantPosts = GetAllPosts.Where(x => x.Address.Contains(e.NewTextValue));
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Fanget i try catch!");
-                    Console.WriteLine(ex.Source + " " + ex.Message);
-                }
+                
                 if (allRelevantPosts == null)
                 {
-                    Console.WriteLine("Alle relevant er null");
-               
-                    listView.ItemsSource = new List<Post> { new Post { Id=-1, Address="Der er desværre ikke noget pant", Quantity="" , Time="" } };
-
+                    
                 }
                 else
                 {
-                    listView.ItemsSource = allRelevantPosts;
+                    listView.ItemsSource = null;
                 }
             }
         }

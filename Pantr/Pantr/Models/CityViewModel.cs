@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Pantr.Models
 {
-    public class City
+    public class CityViewModel
     {
         public int Zip { get; set; }
-        public string CityName { get; set; }
+        public string City { get; set; }
     }
 }

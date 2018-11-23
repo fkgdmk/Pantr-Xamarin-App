@@ -11,7 +11,6 @@ namespace Pantr.Models
         public string Phone { get; set; }
         public string Email { get; set; }
         public bool IsPanter { get; set; }
-        public string Address { get; set; }
-        public string City { get; set; }
+        public AddressViewModel Address { get; set; }
     }
 }

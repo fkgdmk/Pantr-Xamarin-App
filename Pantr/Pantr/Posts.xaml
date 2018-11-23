@@ -16,7 +16,7 @@
                                 <StackLayout Orientation="Vertical"  Padding="0,0,0,0"  VerticalOptions="Center">
                                     <StackLayout Orientation="Horizontal" >
                                         <Image WidthRequest="10" Source="recyc.png" Margin="0,-2,0,-2"/>
-                                        <Label Text="{Binding Quantity}" FontSize="Micro" Margin="0,-2,0,-2"/>
+                                        <Label Text="Binding Quantity" FontSize="Micro" Margin="0,-2,0,-2"/>
                                     </StackLayout>
                                     <StackLayout Orientation="Horizontal">
                                         <Image WidthRequest="10" Source="map.png" Margin="0,-2,0,-2"/>
@@ -24,7 +24,7 @@
                                     </StackLayout>
                                     <StackLayout Orientation="Horizontal">
                                         <Image WidthRequest="10" Source="recyc.png" Opacity="0" Margin="0,-2,0,-2"/>
-                                        <Label Text="{Binding Zipcode}" FontSize="Micro" Margin="0,-2,0,-2"/>
+                                        <Label Text="{Binding Date}" FontSize="Micro" Margin="0,-2,0,-2"/>
                                     </StackLayout>
                                     <StackLayout Orientation="Horizontal">
                                         <Image WidthRequest="10" Source="time.png" Margin="0,-2,0,-2"/>
