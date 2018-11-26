@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Pantr.DB;
 
 namespace Pantr
 {
@@ -14,6 +15,7 @@ namespace Pantr
     {
         public Posts()
         {
+            
            InitializeComponent();
            
             listView.ItemsSource = GetAllPosts;

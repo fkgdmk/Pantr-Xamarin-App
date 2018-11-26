@@ -12,10 +12,24 @@
                 </Image.GestureRecognizers>
             </Image>
             <Image WidthRequest="80" Source="icon.png" HorizontalOptions="Center"/>
-            <Label VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding Quantity}"/>
-            <Label VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding Address}"/>
-            <Label VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding Date}"/>
-            <Label VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding Time}"/>
+            <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
+                <Image WidthRequest="12" Source="recyc.png"/>
+                <Label Text="{Binding Quantity}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
+                <Image WidthRequest="12" Source="map.png"/>
+                <Label VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding Address}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
+                <Image WidthRequest="12" Source="time.png"/>
+                <Label VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding Date}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Image WidthRequest="12" Source="time.png"/>
+                <Label VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding StartTime}"/>
+                <Label Text=" - " VerticalOptions="Center"/>
+                <Label VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding EndTime}"/>
+            </StackLayout>
             <Button Text="Annuller" x:Name="submit" Clicked="submit_Clicked" HorizontalOptions="Center" Margin="0, 40, 0, 0" WidthRequest="120"></Button>
         </StackLayout>
     </ContentPage.Content>
