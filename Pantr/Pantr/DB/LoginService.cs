@@ -12,20 +12,15 @@ namespace Pantr.DB
 {
     class LoginService
     {
-
-        private string Uri = "http://94.18.243.144:50001/api/login";
-
-
-
         public async Task Login(LoginViewModel login)
         {
             var controllerName = "login";
-            var basicClientApi = string.Format("http://94.18.243.144:50001/api/{0}", controllerName);
+            var basicClientApi = string.Format("http://10.0.2.2:50001/api/{0}", controllerName);
             try
             {
                 using (var httpClient = new HttpClient())
                 {
-                    var json = JsonConvert.SerializeObject(login); // no need to call `JObject.FromObject`
+                    var json = JsonConvert.SerializeObject(login); 
                     var content = new StringContent(json, Encoding.UTF8, "application/json");
                     content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
