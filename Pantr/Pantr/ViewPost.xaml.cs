@@ -60,8 +60,8 @@ namespace Pantr
                 var content = await response.Content.ReadAsStringAsync();
                 post = JsonConvert.DeserializeObject<PostViewModel>(content);
 
-                post.StartTime = FormatTime(post.StartTime);
-                post.EndTime = FormatTime(post.EndTime);
+             //   post.StartTime = FormatTime(post.StartTime);
+              //  post.EndTime = FormatTime(post.EndTime);
                 //string date = post.Date.ToString("dd/MM/yyyy");
                 //DateTime formatedDate = DateTime.ParseExact(date, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 //post.Date = formatedDate;
