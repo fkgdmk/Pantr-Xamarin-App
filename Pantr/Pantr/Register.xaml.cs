@@ -51,8 +51,8 @@ namespace Pantr
 
 
             JObject jObject = new JObject();
-            string sUrl = "http://localhost:50001/api/users";
-            string sContentType = "application/json";
+            //string sUrl = "http://localhost:50001/api/users";
+            //string sContentType = "application/json";
 
             jObject.Add("username", user.Username);
             jObject.Add("Password", HashString(password.Text));

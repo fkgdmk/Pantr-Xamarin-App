@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Pantr.Models;
+using Pantr.DB;
+using System.Net.Http.Headers;
 
 namespace Pantr
 {
@@ -32,13 +34,16 @@ namespace Pantr
             });
         }
 
-        private void Button_Clicked(object sender, EventArgs e)
+        private async void Button_Clicked(object sender, EventArgs e)
         {
             LoginViewModel login = new LoginViewModel()
             {
                 Username = username.Text,
-                Password = HashString(userPassword.Text)
+                Password = userPassword.Text
+                //Password = HashString(userPassword.Text)
             };
+            LoginService ls = new LoginService();
+            await ls.Login(login);
         }
 
         private string HashString(string inputString)
