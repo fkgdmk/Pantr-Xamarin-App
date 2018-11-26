@@ -29,6 +29,7 @@ namespace Pantr.DB
                         post = JsonConvert.DeserializeObject<IEnumerable<PostViewModel>>(content);                   
                     }
 
+            TimeSpan.FromMinutes(352345235);
                 listView.ItemsSource = post;
                 }
             }
