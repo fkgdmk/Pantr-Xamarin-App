@@ -149,7 +149,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xam.Plugin.Iconize">
-      <Version>3.3.0.93</Version>
+      <Version>3.4.0.100</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="3.4.0.1008975" />
   </ItemGroup>

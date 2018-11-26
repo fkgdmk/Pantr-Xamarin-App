@@ -13,6 +13,7 @@ namespace Pantr
 
             //Kode forslag: PostsPage og CreatePostPage ?
             MainPage = new Login();
+
         }
 
         protected override void OnStart()
