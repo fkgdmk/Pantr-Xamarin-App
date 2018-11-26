@@ -20,6 +20,7 @@ namespace Pantr.DB
 
                     var uri = new Uri(string.Format("http://10.111.180.139:45455/api/posts"));
 
+
                     var response = await client.GetAsync(uri);
 
                     if (response.IsSuccessStatusCode)
