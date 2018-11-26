@@ -66,7 +66,7 @@ namespace Pantr
 
         public async void CreatePostInDb(PostViewModel post)
         {
-            var uri = new Uri(string.Format("http://10.0.2.2:45455/api/post/getuserspost/1"));
+            var uri = new Uri(string.Format("http://10.0.2.2:45455/api/post/"));
 
             HttpClient client = new HttpClient();
 
