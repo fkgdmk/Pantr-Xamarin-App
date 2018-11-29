@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Pantr.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,6 +22,14 @@ namespace Pantr
 
         private void submit_Clicked(object sender, EventArgs e)
         {
+            PostViewModel post = new PostViewModel
+            {
+                StartTime = 2,
+                EndTime = 3,
+            };
+
+            CreatePostInDb(post);
+
             DateTime daten = date.Date;
             long start = startTime.Time.Ticks;
             long end = endTime.Time.Ticks;
@@ -51,6 +62,26 @@ namespace Pantr
                 daten.ToString("dd/MM/yyyy") + " starttid " + start + " slut " + end + " type " + materialType, "Farvel");
             }
 
+        }
+
+        public async void CreatePostInDb(PostViewModel post)
+        {
+            var uri = new Uri(string.Format("http://10.0.2.2:45455/api/post/"));
+
+            HttpClient client = new HttpClient();
+
+            var json = JsonConvert.SerializeObject(post);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = null;
+
+            response = await client.PostAsync(uri, content);
+          
+
+            if (response.IsSuccessStatusCode)
+            {
+              
+            }
         }
     }
 }
