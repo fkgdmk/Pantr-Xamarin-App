@@ -36,8 +36,6 @@ namespace Pantr.DB
 
         public static async Task<PostViewModel> GetUsersPost()
         {
-            //PostViewModel post = null;
-
             HttpClient client = new HttpClient();
             PostViewModel post = null;
 
@@ -49,15 +47,23 @@ namespace Pantr.DB
             {
                 var content = await response.Content.ReadAsStringAsync();
                 post = JsonConvert.DeserializeObject<PostViewModel>(content);
-               
-
-                // post.StartTime = FormatTime(post.StartTime);
-                //  post.EndTime = FormatTime(post.EndTime);
-               // string date = post.Date.ToString("dd/MM/yyyy");
-               // DateTime formatedDate = DateTime.ParseExact(date, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-               ///post.Date = formatedDate
             }
             return post;
+        }
+
+        public static async Task<HttpResponseMessage> CreatePostInDb (PostViewModel post)
+        {
+            var uri = new Uri(string.Format("http://10.0.2.2:45455/api/post/"));
+
+            HttpClient client = new HttpClient();
+
+            var json = JsonConvert.SerializeObject(post);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = null;
+
+            response = await client.PostAsync(uri, content);
+            return response;
         }
 
         public TimeSpan ConvertIntegerToTimeSpan(int minutesAfterMidnight)
@@ -67,9 +73,6 @@ namespace Pantr.DB
             int minutes = minutesAfterMidnight % 60;
 
             TimeSpan time = new TimeSpan(hours, minutes, 0);
-
-
-            //TimeSpan time = midnight.Add(hours)
 
             return time;
         }
