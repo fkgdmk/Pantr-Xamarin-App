@@ -43,7 +43,9 @@ namespace Pantr
                 //Password = HashString(userPassword.Text)
             };
             LoginService ls = new LoginService();
-            await ls.Login(login);
+            var loginAuthenticated = await ls.AuthenticateUser(login);
+            setLoggedInUser(loginAuthenticated);
+            await Navigation.PushAsync(new Posts());
         }
 
         private string HashString(string inputString)
@@ -52,6 +54,18 @@ namespace Pantr
             data = new System.Security.Cryptography.SHA256Managed().ComputeHash(data);
             string hash = Encoding.ASCII.GetString(data);
             return hash;
+        }
+
+        private void setLoggedInUser(UserViewModelTest authenticatedUser)
+        {
+            Application.Current.Properties["Username"] = authenticatedUser.Firstname;
+            Application.Current.Properties["ID"] = authenticatedUser.ID;
+        }
+
+        private void Button_Clicked_1(object sender, EventArgs e)
+        {
+            Application.Current.Properties["Username"] = null;
+            Application.Current.Properties["ID"] = null;
         }
     }
 }

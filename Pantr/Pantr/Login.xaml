@@ -27,7 +27,8 @@
                         Clicked="Button_Clicked"
                         x:Name="loginButton"/>
             </StackLayout>
-
+            <Button Text="Logout"
+                    Clicked="Button_Clicked_1"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

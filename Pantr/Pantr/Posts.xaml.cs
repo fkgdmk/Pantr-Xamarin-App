@@ -23,20 +23,21 @@ namespace Pantr
         {
 
             InitializeComponent();
-          //   listView.ItemsSource = Test;
-            Console.WriteLine("11111111111111111111111111");
-            try
-            {
-                Console.WriteLine("222222222222222222222222");
-                PostService.GetAllPosts(listView);
-                //listView.ItemsSource = Test;
-                Console.WriteLine("2,55555555555555555555555");
-            } catch (Exception e)
-            {
-                Console.WriteLine("3333333333333333333333333333");
-                Console.WriteLine("Whaaaaaaaaaaaaaat?");
-                Console.WriteLine(e.StackTrace);
-            }
+            //   listView.ItemsSource = Test;
+            //Console.WriteLine("11111111111111111111111111");
+            //try
+            //{
+            //    Console.WriteLine("222222222222222222222222");
+            //    PostService.GetAllPosts(listView);
+            //    //listView.ItemsSource = Test;
+            //    Console.WriteLine("2,55555555555555555555555");
+            //} catch (Exception e)
+            //{
+            //    Console.WriteLine("3333333333333333333333333333");
+            //    Console.WriteLine("Whaaaaaaaaaaaaaat?");
+            //    Console.WriteLine(e.StackTrace);
+            //}
+            var username = Application.Current.Properties["Username"] as string;
         }
 
         public async void GetAllPosts2()

@@ -12,8 +12,9 @@ namespace Pantr.DB
 {
     class LoginService
     {
-        public async Task Login(LoginViewModel login)
+        public async Task<UserViewModelTest> AuthenticateUser(LoginViewModel login)
         {
+            UserViewModelTest authenticatedUser = null;
             var controllerName = "login";
             var basicClientApi = string.Format("http://10.0.2.2:50001/api/{0}", controllerName);
             try
@@ -35,7 +36,8 @@ namespace Pantr.DB
                         var rawResponse = await response.Content.ReadAsStringAsync();
 
                         JObject o = JObject.Parse(rawResponse);
-                        Console.WriteLine(o.ToString());
+                        authenticatedUser = JsonConvert.DeserializeObject<UserViewModelTest>(o.ToString());
+
                     }
                 }
             }
@@ -43,7 +45,7 @@ namespace Pantr.DB
             {
                 Console.WriteLine(e.StackTrace);
             }
-            
+            return authenticatedUser;
         }
 
     }
