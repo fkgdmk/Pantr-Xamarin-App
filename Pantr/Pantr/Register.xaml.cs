@@ -5,28 +5,13 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-
+using Pantr.DB;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Pantr.Models;
 
 namespace Pantr
 {
-
-    public class User
-    {
-        public string Username { get; set; }
-        public byte[] Password { get; set; }
-        public string FirstName { get; set; }
-        public string Surname { get; set; }
-        public string Email { get; set; }
-        public string Phone { get; set; }
-        public string Address { get; set; }
-        public string Zip { get; set; }
-        public bool isPanter { get; set; }
-        public bool isAdult { get; set; }
-    }
-
-
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Register : ContentPage
     {
@@ -35,46 +20,51 @@ namespace Pantr
             InitializeComponent();
         }
 
-        private void Button_Clicked(object sender, EventArgs e)
+        private async void Button_Clicked(object sender, EventArgs e)
         {
-            User user = new User()
+            UserViewModelTest registerUser = new UserViewModelTest()
             {
-                Username = userNameRegister.Text,
-                Password = HashString(password.Text),
-                FirstName = firstName.Text,
+                Firstname = firstName.Text,
                 Surname = surname.Text,
-                Address = address.Text,
-                Zip = zip.Text,
-                isPanter = isPanter.IsToggled,
-                isAdult = isAdult.IsToggled
+                Email = email.Text,
+                Phone = phone.Text,
+                IsPanter = isPanter.IsToggled,
+                Login = new LoginViewModel()
+                {
+                    Username = userNameRegister.Text,
+                    Password = HashString(password.Text)
+                },
+                Address = new AddressViewModel()
+                {
+                    Address = address.Text,
+                    City = new CityViewModel()
+                    {
+                        City = null,
+                        Zip = zip.Text
+                    }
+                }
             };
 
 
-            JObject jObject = new JObject();
-            //string sUrl = "http://localhost:50001/api/users";
-            //string sContentType = "application/json";
-
-            jObject.Add("username", user.Username);
-            jObject.Add("Password", HashString(password.Text));
-            jObject.Add("FirstName", firstName.Text);
-            jObject.Add("Surname", surname.Text);
-            jObject.Add("Address", address.Text);
-            jObject.Add("Zip", zip.Text);
-            jObject.Add("isPanter", isPanter.IsToggled);
-            jObject.Add("isAdult", isAdult.IsToggled);
-
-
-            
+            UserService userService = new UserService();
+            var userRegistered = await userService.RegisterUser(registerUser);
+            if(userRegistered != null)
+            {
+                await Navigation.PushAsync(new Login());
+            } else
+            {
+                //Fejlhåndtering
+            }
         }
 
 
 
-        private byte[] HashString(string inputString)
+        private string HashString(string inputString)
         {
             byte[] data = Encoding.ASCII.GetBytes(inputString);
             data = new System.Security.Cryptography.SHA256Managed().ComputeHash(data);
             string hash = Encoding.ASCII.GetString(data);
-            return data;
+            return hash;
         }
 
         //Textchanged event som sammenligner passwords. Disabler submit-knappen så længe passwords er uens

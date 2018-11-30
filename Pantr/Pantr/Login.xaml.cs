@@ -29,7 +29,7 @@ namespace Pantr
             {
                 Command = new Command(() =>
                 {
-                    App.Current.MainPage = new Register();
+                    App.Current.MainPage = new NavigationPage(new Register());
                 })
             });
         }
@@ -39,13 +39,18 @@ namespace Pantr
             LoginViewModel login = new LoginViewModel()
             {
                 Username = username.Text,
-                Password = userPassword.Text
-                //Password = HashString(userPassword.Text)
+                Password = HashString(userPassword.Text)
             };
             LoginService ls = new LoginService();
             var loginAuthenticated = await ls.AuthenticateUser(login);
             setLoggedInUser(loginAuthenticated);
-            await Navigation.PushAsync(new Posts());
+            if(loginAuthenticated != null)
+            {
+                await Navigation.PushAsync(new Posts());
+            } else
+            {
+                //fejlhåndtering
+            }
         }
 
         private string HashString(string inputString)

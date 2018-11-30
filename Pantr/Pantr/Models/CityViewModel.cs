@@ -6,7 +6,7 @@ namespace Pantr.Models
 {
     public class CityViewModel
     {
-        public int Zip { get; set; }
+        public string Zip { get; set; }
         public string City { get; set; }
     }
 }
