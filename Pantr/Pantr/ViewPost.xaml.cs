@@ -25,52 +25,16 @@ namespace Pantr
             public string Time { get; set; }
         }
 
-        Post post = new Post { Id = 1, Address = "Lygten 18, 2400 Kbh", Quantity = "1 Kasse", Date="11/12/2018", Time = "10.30-12.00" };
+        //Post post = new Post { Id = 1, Address = "Lygten 18, 2400 Kbh", Quantity = "1 Kasse", Date="11/12/2018", Time = "10.30-12.00" };
         public ViewPost ()
-		{
+		{            
+        }
 
-            //PostService service = new PostService();
-
-            //var test = service.GetUsersPost();
-            Task<PostViewModel> post = GetUsersPost();
-
-            Console.WriteLine("hey", post);
-            Console.WriteLine(post.Result);
-
-            BindingContext = post.Result;
-			InitializeComponent ();
-
-		}
-
-        public async Task<PostViewModel> GetUsersPost()
+        protected override async void OnAppearing()
         {
-            //PostViewModel post = null;
-
-            HttpClient client = new HttpClient();
-            PostViewModel post = null;
-
-
-            var uri = new Uri(string.Format("http://10.111.180.138:45455/api/post/getuserspost/1"));
-
-
-            var response = await client.GetAsync(uri);
-
-            if (response.IsSuccessStatusCode)
-            {
-                var content = await response.Content.ReadAsStringAsync();
-                post = JsonConvert.DeserializeObject<PostViewModel>(content);
-
-             //   post.StartTime = FormatTime(post.StartTime);
-              //  post.EndTime = FormatTime(post.EndTime);
-                //string date = post.Date.ToString("dd/MM/yyyy");
-                //DateTime formatedDate = DateTime.ParseExact(date, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                //post.Date = formatedDate;
-
-                return post;
-            } else
-            {
-                return post;
-            }
+            PostViewModel post = await PostService.GetUsersPost();
+            BindingContext = post;
+            InitializeComponent();
         }
 
         public string FormatTime(string time)

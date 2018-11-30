@@ -7,9 +7,9 @@ namespace Pantr.Models
     public class PostViewModel
     {
         public int Id { get; set; }
-        public Material Material { get; set; }
+        public MaterialViewModel Material { get; set; }
         public UserViewModel Giver { get; set; }
-       // public PostQuantity PostQuantity { get; set; }    
+        public string Quantity { get; set; }    
         public string Address { get; set; }
         public int StartTime { get; set; }
         public int EndTime { get; set; }
