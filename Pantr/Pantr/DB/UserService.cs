@@ -12,10 +12,11 @@ namespace Pantr.DB
 {
     class UserService
     {
-        //public async Task<bool> RegisterUser(JObject registerUser)
-        public async Task<UserViewModelTest> RegisterUser(UserViewModelTest registerUser)
+        public async Task<bool> RegisterUser(JObject registerUser)
+        //public async Task<UserViewModelTest> RegisterUser(UserViewModelTest registerUser)
         {
-            UserViewModelTest registeredUser = null;
+            //UserViewModelTest registeredUser = null;
+            bool registered = false;
             var controllerName = "users";
             var basicClientApi = string.Format("http://10.0.2.2:50001/api/{0}", controllerName);
             try
@@ -37,8 +38,8 @@ namespace Pantr.DB
                         var rawResponse = await response.Content.ReadAsStringAsync();
 
                         JObject o = JObject.Parse(rawResponse);
-                        registeredUser = JsonConvert.DeserializeObject<UserViewModelTest>(o.ToString());
-
+                        //registeredUser = JsonConvert.DeserializeObject<UserViewModelTest>(o.ToString());
+                        registered = true;
                     }
                 }
             }
@@ -46,7 +47,8 @@ namespace Pantr.DB
             {
                 Console.WriteLine(e.StackTrace);
             }
-            return registeredUser;
+            return registered;
+            //return registeredUser;
         }
     }
 }

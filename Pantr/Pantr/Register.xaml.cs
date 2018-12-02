@@ -22,36 +22,36 @@ namespace Pantr
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            UserViewModelTest registerUser = new UserViewModelTest()
-            {
-                Firstname = firstName.Text,
-                Surname = surname.Text,
-                Email = email.Text,
-                Phone = phone.Text,
-                IsPanter = isPanter.IsToggled,
-                Login = new LoginViewModel()
-                {
-                    Username = userNameRegister.Text,
-                    Password = HashString(password.Text)
-                },
-                Address = new AddressViewModel()
-                {
-                    Address = address.Text,
-                    City = new CityViewModel()
-                    {
-                        City = null,
-                        Zip = zip.Text
-                    }
-                }
-            };
+            //Skal testes om virker som JObject i stedet
+            JObject registerUser = new JObject();
+            JObject registerLogin = new JObject();
+            JObject registerCity = new JObject();
+            JObject registerAddress = new JObject();
 
+            registerCity.Add("City", null);
+            registerCity.Add("Zip", zip.Text);
+
+            registerAddress.Add("Address", address.Text);
+            registerAddress.Add("City", registerCity);
+
+            registerLogin.Add("Username", userNameRegister.Text);
+            registerLogin.Add("Password", HashString(password.Text));
+
+            registerUser.Add("Firstname", firstName.Text);
+            registerUser.Add("Surname", surname.Text);
+            registerUser.Add("Email", email.Text);
+            registerUser.Add("Phone", phone.Text);
+            registerUser.Add("IsPanter", isPanter.IsToggled);
+            registerUser.Add("Address", registerAddress);
+            registerUser.Add("Login", registerLogin);
 
             UserService userService = new UserService();
             var userRegistered = await userService.RegisterUser(registerUser);
-            if(userRegistered != null)
+            if (userRegistered != null)
             {
                 await Navigation.PushAsync(new Login());
-            } else
+            }
+            else
             {
                 //Fejlhåndtering
             }

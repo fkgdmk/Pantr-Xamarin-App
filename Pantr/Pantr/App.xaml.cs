@@ -12,7 +12,7 @@ namespace Pantr
             InitializeComponent();
             if (Current.Properties.ContainsKey("Username"))
             {
-                var username = Current.Properties["Username"] as string;
+                //var username = Current.Properties["Username"] as string;
                 MainPage = new NavigationPage(new Posts());
             }
             else

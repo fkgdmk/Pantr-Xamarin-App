@@ -11,6 +11,7 @@ using Xamarin.Forms.Xaml;
 using Pantr.Models;
 using Pantr.DB;
 using System.Net.Http.Headers;
+using Newtonsoft.Json.Linq;
 
 namespace Pantr
 {
@@ -36,11 +37,11 @@ namespace Pantr
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            LoginViewModel login = new LoginViewModel()
-            {
-                Username = username.Text,
-                Password = HashString(userPassword.Text)
-            };
+            JObject login = new JObject();
+            login.Add("Username", username.Text);
+            login.Add("Password", HashString(userPassword.Text));
+
+
             LoginService ls = new LoginService();
             var loginAuthenticated = await ls.AuthenticateUser(login);
             setLoggedInUser(loginAuthenticated);
@@ -63,7 +64,7 @@ namespace Pantr
 
         private void setLoggedInUser(UserViewModelTest authenticatedUser)
         {
-            Application.Current.Properties["Username"] = authenticatedUser.Firstname;
+            if (authenticatedUser == null) return;
             Application.Current.Properties["ID"] = authenticatedUser.ID;
         }
 

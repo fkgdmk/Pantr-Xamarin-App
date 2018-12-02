@@ -12,7 +12,7 @@ namespace Pantr.DB
 {
     class LoginService
     {
-        public async Task<UserViewModelTest> AuthenticateUser(LoginViewModel login)
+        public async Task<UserViewModelTest> AuthenticateUser(JObject login)
         {
             UserViewModelTest authenticatedUser = null;
             var controllerName = "login";
