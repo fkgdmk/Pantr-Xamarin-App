@@ -9,17 +9,25 @@ namespace Pantr
     {
         public App()
         {
-
-
             InitializeComponent();
+            //if (Current.Properties.ContainsKey("Username"))
+            //{
+            ////    var username = Current.Properties["Username"] as string;
+            //    MainPage = new NavigationPage(new Posts());
+            //}
+            //else
+            //{
+            //    MainPage = new NavigationPage(new Login());
+            //}
 
             //Kode forslag: PostsPage og CreatePostPage ?
             MainPage = new ViewPost();
+
         }
 
         protected override void OnStart()
         {
-            // Handle when your app starts
+            
         }
 
         protected override void OnSleep()
