@@ -39,7 +39,7 @@ namespace Pantr.DB
             HttpClient client = new HttpClient();
             PostViewModel post = null;
 
-            var uri = new Uri(string.Format("http://192.168.1.173:45455/api/post/getuserspost/1"));
+            var uri = new Uri(string.Format("http://10.0.2.2:50001/api/post/getuserspost/1"));
 
             var response = await client.GetAsync(uri);
 
