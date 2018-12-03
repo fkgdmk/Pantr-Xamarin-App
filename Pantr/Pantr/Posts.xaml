@@ -6,6 +6,7 @@
              Padding="20,5,20,20">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" Margin="0,0,0,0" Padding="0,0,0,0">
+            <Label Text="{Binding username}"/>
             <Entry x:Name="zipcodeSearch" Keyboard="Numeric" IsTextPredictionEnabled="True" Placeholder="Søg postnummer" FontSize="14" TextChanged="ZipcodeSearch_TextChanged" />
             <ListView x:Name="listView" RowHeight="85" ItemSelected="ListView_ItemSelected" SeparatorColor="Black" IsPullToRefreshEnabled="True">
             <ListView.ItemTemplate>
