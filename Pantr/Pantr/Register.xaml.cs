@@ -47,7 +47,7 @@ namespace Pantr
 
             UserService userService = new UserService();
             var userRegistered = await userService.RegisterUser(registerUser);
-            if (userRegistered != null)
+            if (userRegistered)
             {
                 await Navigation.PushAsync(new Login());
             }
