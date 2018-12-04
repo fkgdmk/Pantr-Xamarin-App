@@ -28,7 +28,7 @@ namespace Pantr
             //try
             //{
             //    Console.WriteLine("222222222222222222222222");
-            //    PostService.GetAllPosts(listView);
+                PostService.GetAllPosts(listView);
             //    //listView.ItemsSource = Test;
             //    Console.WriteLine("2,55555555555555555555555");
             //} catch (Exception e)
@@ -37,7 +37,6 @@ namespace Pantr
             //    Console.WriteLine("Whaaaaaaaaaaaaaat?");
             //    Console.WriteLine(e.StackTrace);
             //}
-            var username = Application.Current.Properties["Username"] as string;
         }
 
         public async void GetAllPosts2()

@@ -18,7 +18,7 @@ namespace Pantr.DB
                     HttpClient client = new HttpClient();
                     IEnumerable < PostViewModel > post = null;
 
-                    var uri = new Uri(string.Format("http://10.111.180.139:45455/api/posts"));
+                    var uri = new Uri(string.Format("http://10.0.2.2:50001/api/posts"));
 
 
                     var response = await client.GetAsync(uri);
@@ -50,10 +50,26 @@ namespace Pantr.DB
             }
             return post;
         }
+        public static async Task<PostViewModel> GetPost()
+        {
+            HttpClient client = new HttpClient();
+            PostViewModel post = null;
+
+            var uri = new Uri(string.Format("http://10.0.2.2:50001/api/post/1"));
+
+            var response = await client.GetAsync(uri);
+
+            if(response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                post = JsonConvert.DeserializeObject<PostViewModel>(content);
+            }
+            return post;
+        }
 
         public static async Task<HttpResponseMessage> CreatePostInDb (PostViewModel post)
         {
-            var uri = new Uri(string.Format("http://192.168.1.173:45455/api/post/"));
+            var uri = new Uri(string.Format("http://10.0.2.2:50001/api/post/"));
 
             HttpClient client = new HttpClient();
 
@@ -76,11 +92,6 @@ namespace Pantr.DB
 
             return time;
         }
-
     }
-
-
-
-
 }
 

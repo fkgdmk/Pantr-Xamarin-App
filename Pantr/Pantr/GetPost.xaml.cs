@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Pantr.DB;
+using Pantr.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,24 +16,22 @@ namespace Pantr
 	{
 		public GetPost ()
         { 
-            InitializeComponent();
-            BindingContext = tester;
         }
 
-    Post tester = new Post { Id = 1, Address = "testvej 42", Quantity = 5, Time = "TT:TT:test" };
+        PostViewModel post;
 
-    public class Post
-    {
-        public int Id { get; set; }
-        public string Address { get; set; }
-        public int Quantity { get; set; }
-        public string Time { get; set; }
-    }
+        protected override async void OnAppearing()
+        {
+            PostViewModel post = await PostService.GetPost();
+            BindingContext = post;
+            this.post = post;
+            InitializeComponent();
+        }
     
-    private void Button_Reserver(object sender, EventArgs e)
-    {
-        
+        private void Button_Reserver(object sender, EventArgs e)
+        {
+            
 
+        }
     }
-}
 }

@@ -21,7 +21,7 @@ namespace Pantr
             //}
 
             //Kode forslag: PostsPage og CreatePostPage ?
-            MainPage = new ViewPost();
+            MainPage = new Posts();
 
         }
 
