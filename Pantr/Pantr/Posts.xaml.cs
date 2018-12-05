@@ -37,7 +37,6 @@ namespace Pantr
             //    Console.WriteLine("Whaaaaaaaaaaaaaat?");
             //    Console.WriteLine(e.StackTrace);
             //}
-            var username = Application.Current.Properties["Username"] as string;
         }
 
         public async void GetAllPosts2()
