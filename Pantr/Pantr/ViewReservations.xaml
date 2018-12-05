@@ -9,18 +9,19 @@
             <ListView x:Name="ReservationsView"
                       RowHeight="85"
                       SeparatorColor="Black" 
-                      IsPullToRefreshEnabled="True">
+                      IsPullToRefreshEnabled="True"
+                      ItemSelected="ReservationsView_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate >
                         <ViewCell >
                             <StackLayout Orientation="Horizontal">
                                 <Image WidthRequest="50" 
                                        Source="icon.png"/>
-                                
+
                                 <StackLayout Orientation="Vertical"  
                                              Padding="0,0,0,0"  
                                              VerticalOptions="Center">
-                                    
+
                                     <StackLayout Orientation="Horizontal" >
                                         <Image WidthRequest="10" 
                                                Source="recyc.png" 
@@ -29,7 +30,7 @@
                                                FontSize="Micro" 
                                                Margin="0,-2,0,-2"/>
                                     </StackLayout>
-                                    
+
                                     <StackLayout Orientation="Horizontal">
                                         <Image WidthRequest="10" 
                                                Source="map.png" 
@@ -38,7 +39,7 @@
                                                FontSize="Small" 
                                                Margin="0,-2,0,-2"/>
                                     </StackLayout>
-                                    
+
                                     <StackLayout Orientation="Horizontal">
                                         <Image WidthRequest="10" 
                                                Source="recyc.png" 
@@ -48,7 +49,7 @@
                                                FontSize="Micro" 
                                                Margin="0,-2,0,-2"/>
                                     </StackLayout>
-                                    
+
                                     <StackLayout Orientation="Horizontal">
                                         <Image WidthRequest="10" 
                                                Source="time.png" 

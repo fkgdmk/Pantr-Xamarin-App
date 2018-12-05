@@ -14,11 +14,6 @@ namespace Pantr
 		{
 			InitializeComponent ();
             ReservationsView.ItemsSource = reservations;
-            //reservations.Add(new PostViewModelCopy() { Quantity="1 sække", Date = "11-12-13", Address = "Ligeher", PeriodForPickup = "kl 13-16" });
-            //reservations.Add(new PostViewModelCopy() { Quantity="2 poser, 1 kasser", Date = "41-34-13", Address = "Ligeder", PeriodForPickup = "kl 12-17" });
-            //reservations.Add(new PostViewModelCopy() { Quantity="2 poser, 2 kasser, 2 sække", Date = "54-23-41", Address = "Ligehvor", PeriodForPickup = "kl 14-18" });
-            //reservations.Add(new PostViewModelCopy() { Quantity="1 pose", Date = "31-12-34", Address = "Ligenu", PeriodForPickup = "kl 15-17" });
-
         }
 
         protected async override void OnAppearing()
@@ -39,6 +34,22 @@ namespace Pantr
                 reservations.Add(item);
             }
 
+        }
+
+        private async void ReservationsView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            ListView reservedPosts = sender as ListView;
+            PostViewModelCopy selectedPost = reservedPosts == null ? null : reservedPosts.SelectedItem as PostViewModelCopy;
+
+            var cancelled = await DisplayAlert("Afmeld reservation", selectedPost.Quantity + "\n" +
+                                                               selectedPost.Address + "\n" +
+                                                               selectedPost.Date + "\n" +
+                                                               selectedPost.PeriodForPickup, "Afmeld", "Tilbage");
+            if (cancelled)
+            {
+                TransactionService transactionService = new TransactionService();
+                transactionService.CancelReservation(selectedPost.Id);
+            }
         }
     }
 }

@@ -11,8 +11,7 @@ namespace Pantr.Models
         public string Quantity { get; set; }
         public string Address { get; set; }
         public string PeriodForPickup { get; set; }
-        public bool Claimed { get; set; }
-        public bool Completed { get; set; }
         public string Date { get; set; }
+        public int Id { get; set; }
     }
 }

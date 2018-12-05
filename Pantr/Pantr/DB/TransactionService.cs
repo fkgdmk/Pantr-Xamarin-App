@@ -16,7 +16,7 @@ namespace Pantr.DB
         {
             ObservableCollection<PostViewModelCopy> fromDb = new ObservableCollection<PostViewModelCopy>();
 
-            var controllerName = "user/reservation";
+            var controllerName = "users/reservation";
             var basicClientApi = string.Format("http://10.0.2.2:50001/api/{0}/{1}", controllerName, id);
             try
             {
@@ -43,6 +43,11 @@ namespace Pantr.DB
             }
 
             return fromDb;
+        }
+
+        public async void CancelReservation(int id)
+        {
+
         }
     }
 }
