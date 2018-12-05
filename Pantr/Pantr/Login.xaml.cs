@@ -65,6 +65,7 @@ namespace Pantr
         private void setLoggedInUser(UserViewModelTest authenticatedUser)
         {
             if (authenticatedUser == null) return;
+            Application.Current.Properties["Username"] = authenticatedUser.Username;
             Application.Current.Properties["ID"] = authenticatedUser.ID;
         }
 
