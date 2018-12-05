@@ -19,10 +19,6 @@ namespace Pantr
             {
                 MainPage = new NavigationPage(new Login());
             }
-
-            //Kode forslag: PostsPage og CreatePostPage ?
-            //MainPage = new ViewPost();
-
         }
 
         protected override void OnStart()
