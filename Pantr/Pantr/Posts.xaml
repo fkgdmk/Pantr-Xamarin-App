@@ -6,7 +6,6 @@
              Padding="20,5,20,20">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" Margin="0,0,0,0" Padding="0,0,0,0">
-            <Label Text="{Binding username}"/>
             <Entry x:Name="zipcodeSearch" Keyboard="Numeric" IsTextPredictionEnabled="True" Placeholder="Søg postnummer" FontSize="14" TextChanged="ZipcodeSearch_TextChanged" />
             <ListView x:Name="listView" RowHeight="85" ItemSelected="ListView_ItemSelected" SeparatorColor="Black" IsPullToRefreshEnabled="True">
             <ListView.ItemTemplate>
@@ -17,7 +16,7 @@
                                 <StackLayout Orientation="Vertical"  Padding="0,0,0,0"  VerticalOptions="Center">
                                     <StackLayout Orientation="Horizontal" >
                                         <Image WidthRequest="10" Source="recyc.png" Margin="0,-2,0,-2"/>
-                                        <Label Text="Binding Quantity" FontSize="Micro" Margin="0,-2,0,-2"/>
+                                        <Label Text="{Binding Quantity}" FontSize="Micro" Margin="0,-2,0,-2"/>
                                     </StackLayout>
                                     <StackLayout Orientation="Horizontal">
                                         <Image WidthRequest="10" Source="map.png" Margin="0,-2,0,-2"/>
@@ -39,4 +38,4 @@
         </ListView>
         </StackLayout>
     </ContentPage.Content>
-</ContentPage>
+</ContentPage>  

@@ -22,7 +22,6 @@ namespace Pantr
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            //Skal testes om virker som JObject i stedet
             JObject registerUser = new JObject();
             JObject registerLogin = new JObject();
             JObject registerCity = new JObject();
@@ -47,7 +46,7 @@ namespace Pantr
 
             UserService userService = new UserService();
             var userRegistered = await userService.RegisterUser(registerUser);
-            if (userRegistered != null)
+            if (userRegistered)
             {
                 await Navigation.PushAsync(new Login());
             }
