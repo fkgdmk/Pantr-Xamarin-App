@@ -28,7 +28,7 @@
                                     </StackLayout>
                                     <StackLayout Orientation="Horizontal">
                                         <Image WidthRequest="10" Source="time.png" Margin="0,-2,0,-2"/>
-                                        <Label Text="{Binding Time}" FontSize="Micro" Margin="0,-2,0,-2"/>
+                                        <Label Text="{Binding PeriodForPickup}" FontSize="Micro" Margin="0,-2,0,-2"/>
                                     </StackLayout>
                                 </StackLayout>
                         </StackLayout>

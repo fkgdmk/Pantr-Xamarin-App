@@ -17,17 +17,26 @@ namespace Pantr.DB
         public static async void GetAllPosts(ListView listView)
         {
 
-            var uri = new Uri(string.Format("http://10.111.180.139:45455/api/posts"));
-
+            var uri = new Uri(string.Format("http://10.0.2.2:50001/api/posts"));
             HttpClient client = new HttpClient();
-            IEnumerable<PostViewModel> post = null;
+            IEnumerable<PostViewModelCopy> post = null;
 
             //var uri = new Uri(string.Format("http://10.111.180.139:45457/api/posts"));
 
             var response = await client.GetAsync(uri);
 
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                post = JsonConvert.DeserializeObject< IEnumerable<PostViewModelCopy>>(content);
 
-            TimeSpan.FromMinutes(352345235);
+            }
+            else
+            {
+                throw new Exception("Ingen forbindelse til api");
+            }
+
+
             listView.ItemsSource = post;
         }
 

@@ -10,15 +10,18 @@ namespace Pantr
         public App()
         {
             InitializeComponent();
-            if (Current.Properties.ContainsKey("Username"))
-            {
-                //    var username = Current.Properties["Username"] as string;
-                MainPage = new NavigationPage(new Posts());
-            }
-            else
-            {
-                MainPage = new NavigationPage(new Login());
-            }
+            MainPage = new Posts();
+
+            /**    if (Current.Properties.ContainsKey("Username"))
+                {
+                    //    var username = Current.Properties["Username"] as string;
+                    MainPage = new Posts();
+                }
+                else
+                {
+                    MainPage = new NavigationPage(new Login());
+                }
+        */
         }
 
         protected override void OnStart()
