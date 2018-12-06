@@ -21,19 +21,19 @@ namespace Pantr
             //}
 
             //Kode forslag: PostsPage og CreatePostPage ?
-            //MainPage = new Posts();
+            MainPage = new GetPost();
 
-            MainPage = new NavigationPage(new ViewReservations());
+            //MainPage = new NavigationPage(new ViewReservations());
 
-            if (Current.Properties.ContainsKey("Username"))
-            {
-                //    var username = Current.Properties["Username"] as string;
-                MainPage = new NavigationPage(new Posts());
-            }
-            else
-            {
-                MainPage = new NavigationPage(new Login());
-            }
+            //if (Current.Properties.ContainsKey("Username"))
+            //{
+            //        var username = Current.Properties["Username"] as string;
+            //    MainPage = new NavigationPage(new Posts());
+            //}
+            //else
+            //{
+            //    MainPage = new NavigationPage(new Login());
+            //}
         }
 
         protected override void OnStart()

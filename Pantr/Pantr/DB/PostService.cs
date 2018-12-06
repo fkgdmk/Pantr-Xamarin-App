@@ -69,6 +69,18 @@ namespace Pantr.DB
             return post;
         }
 
+        public static async Task<HttpResponseMessage> ClaimPost(PostViewModel post)
+        {
+            HttpClient client = new HttpClient();
+            var uri = new Uri(string.Format("http//10.0.2.2:50001/api/claimpost/5"));
+
+            var json = JsonConvert.SerializeObject(post);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await client.GetAsync(uri);
+            
+        }
+
         public static async Task<HttpResponseMessage> CreatePostInDb(PostViewModel post)
         {
             var uri = new Uri(string.Format("http://10.0.2.2:50001/api/post/"));
