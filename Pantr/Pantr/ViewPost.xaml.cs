@@ -16,15 +16,6 @@ namespace Pantr
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ViewPost : ContentPage
 	{
-        public class Post
-        {
-            public int Id { get; set; }
-            public string Address { get; set; }
-            public string Quantity { get; set; }
-            public string Date { get; set; }
-            public string Time { get; set; }
-        }
-
         //Post post = new Post { Id = 1, Address = "Lygten 18, 2400 Kbh", Quantity = "1 Kasse", Date="11/12/2018", Time = "10.30-12.00" };
         public ViewPost ()
 		{            
@@ -32,15 +23,9 @@ namespace Pantr
 
         protected override async void OnAppearing()
         {
-            PostViewModel post = await PostService.GetUsersPost();
+            PostViewModelCopy post = await PostService.GetUsersPost(5);
             BindingContext = post;
             InitializeComponent();
-        }
-
-        public string FormatTime(string time)
-        {
-            string[] strArr = time.Split(':');
-            return strArr[0] + ":" + strArr[1]; 
         }
 
         void OnImageNameTapped(object sender, EventArgs args)
@@ -64,10 +49,14 @@ namespace Pantr
             //DisplayAlert("test", "test", "test", "test");
         }
 
-        private void submit_Clicked(object sender, EventArgs e)
+        private async void submit_Clicked(object sender, EventArgs e)
         {
-            DisplayAlert("test", "", "test");
-
+            PostService postService = new PostService();
+            bool response = await postService.DeletePost(5);
+            if (response)
+            {
+                DisplayAlert("Annulleret", "Dit pantopslag blev annulleret", "OK");
+            }
         }
     }
 }
