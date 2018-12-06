@@ -35,6 +35,10 @@
                 <Label VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding Claimed}"/>
             </StackLayout>
             <Button Text="Annuller" x:Name="submit" Clicked="submit_Clicked" HorizontalOptions="Center" Margin="0, 40, 0, 0" WidthRequest="120"></Button>
+            <Button Text="Afmeld"
+                    x:Name="afmeldButton"
+                    Clicked="AfmeldButton_Clicked"
+                    HorizontalOptions="End"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

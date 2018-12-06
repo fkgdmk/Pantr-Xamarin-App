@@ -14,10 +14,10 @@ namespace Pantr
 	public partial class EditPost : ContentPage
 	{
         PostViewModelCopy post;
-		public EditPost (PostViewModelCopy post)
-		{
-            this.post = post;
-			InitializeComponent ();
-		}
+		//public EditPost (PostViewModelCopy post)
+		//{
+  //          this.post = post;
+		//	InitializeComponent ();
+		//}
 	}
 }

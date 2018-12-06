@@ -11,7 +11,6 @@ namespace Pantr
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new ViewPost());
             //if (Current.Properties.ContainsKey("Username"))
             //{
             //    //    var username = Current.Properties["Username"] as string;
@@ -21,6 +20,7 @@ namespace Pantr
             //{
             //    MainPage = new NavigationPage(new Login());
             //}
+            MainPage = new NavigationPage(new ViewReservations());
         }
 
         protected override void OnStart()

@@ -41,15 +41,7 @@ namespace Pantr
             ListView reservedPosts = sender as ListView;
             PostViewModelCopy selectedPost = reservedPosts == null ? null : reservedPosts.SelectedItem as PostViewModelCopy;
 
-            var cancelled = await DisplayAlert("Afmeld reservation", selectedPost.Quantity + "\n" +
-                                                                 selectedPost.Address + "\n" +
-                                                               selectedPost.Date + "\n" +
-                                                               selectedPost.PeriodForPickup, "Afmeld", "Tilbage");
-            if (cancelled)
-            {
-                TransactionService transactionService = new TransactionService();
-                transactionService.CancelReservation(selectedPost);
-            }
+            await Navigation.PushAsync(new ViewPost(selectedPost, true));
         }
     }
 }

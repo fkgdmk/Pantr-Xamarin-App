@@ -46,15 +46,16 @@ namespace Pantr.DB
             return fromDb;
         }
 
-        public async void CancelReservation(PostViewModelCopy post)
+        public async Task<bool> CancelReservation(JObject postAndPanterId)
         {
+            bool success = false;
             var controllerName = "transaction";
             var basicClientApi = string.Format("http://10.0.2.2:50001/api/{0}", controllerName);
             try
             {
                 using (var httpClient = new HttpClient())
                 {
-                    var json = JsonConvert.SerializeObject(post);
+                    var json = JsonConvert.SerializeObject(postAndPanterId);
                     var content = new StringContent(json, Encoding.UTF8, "application/json");
                     content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
@@ -66,14 +67,14 @@ namespace Pantr.DB
                     }
                     else
                     {
-
+                        success = true;
                     }
                 }
             } catch(Exception e)
             {
 
             }
-            
+            return success;
         }
     }
 }

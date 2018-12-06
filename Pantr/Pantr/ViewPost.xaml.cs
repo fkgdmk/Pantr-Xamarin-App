@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Pantr.Models;
+using Newtonsoft.Json.Linq;
 
 namespace Pantr
 {
@@ -17,15 +18,22 @@ namespace Pantr
 	public partial class ViewPost : ContentPage
 	{
         //Post post = new Post { Id = 1, Address = "Lygten 18, 2400 Kbh", Quantity = "1 Kasse", Date="11/12/2018", Time = "10.30-12.00" };
-        public ViewPost ()
-		{            
-        }
-
-        protected override async void OnAppearing()
-        {
-            PostViewModelCopy post = await PostService.GetUsersPost(5);
+        public ViewPost (PostViewModelCopy post, bool isOwnPost)
+		{
+            if (!isOwnPost) afmeldButton.IsEnabled = false;
             BindingContext = post;
             InitializeComponent();
+        }
+
+        public ViewPost()
+        {
+
+        }
+        protected override async void OnAppearing()
+        {
+            //PostViewModelCopy post = await PostService.GetUsersPost(5);
+            //BindingContext = post;
+            //InitializeComponent();
         }
 
         void OnImageNameTapped(object sender, EventArgs args)
@@ -57,6 +65,22 @@ namespace Pantr
             {
                 DisplayAlert("Annulleret", "Dit pantopslag blev annulleret", "OK");
             }
+        }
+
+        private async void AfmeldButton_Clicked(object sender, EventArgs e)
+        {
+            TransactionService transactionService = new TransactionService();
+            var cancelledPost = (PostViewModelCopy)BindingContext;
+
+            JObject postJObject = new JObject();
+            postJObject.Add("postId", cancelledPost.Id);
+
+            //postJObject.Add("panterId", (int)Application.Current.Properties["Id"]);
+            postJObject.Add("panterId", 1);
+
+            bool result = await transactionService.CancelReservation(postJObject);
+
+            if (result) await Navigation.PushAsync(new Posts());
         }
     }
 }
