@@ -10,6 +10,7 @@ using Pantr.DB;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Newtonsoft.Json.Linq;
 
 namespace Pantr
 {
@@ -64,21 +65,25 @@ namespace Pantr
             submit.IsVisible = false;
             IsBusy = true;
 
-            PostViewModel post = new PostViewModel
-            {
-                Date = dateObj.ToString("dd/MM/yyyy"),
-                StartTime = (int)start,
-                EndTime = (int)end,
-                Quantity = quantity,
-                Material = new MaterialViewModel
-                {
-                    Type = materialType
-                }
-            };
+            JObject post = new JObject();
+            JObject material = new JObject();
+            JObject giver = new JObject();
 
-            HttpResponseMessage response = await PostService.CreatePostInDb(post);
+            material.Add("Type", materialType);
+            giver.Add("Id", 5);
 
-            if (response.IsSuccessStatusCode)
+            //Skal ændres til brugers id
+            post.Add("Giver", giver);
+            post.Add("Date", dateObj);
+            post.Add("StartTime", (int)start);
+            post.Add("EndTime", (int)end);
+            post.Add("Quantity", quantity);
+            post.Add("Material", material);
+
+
+            bool response = await PostService.CreatePostInDb(post);
+
+            if (response)
             {
                 IsBusy = false;
                 submit.IsVisible = true;

@@ -10,7 +10,6 @@ namespace Pantr
         public App()
         {
             InitializeComponent();
-
             //if (Current.Properties.ContainsKey("Username"))
             //{
             //    MainPage = new NavigationPage(new Posts());
@@ -21,6 +20,7 @@ namespace Pantr
             //}
 
             //Kode forslag: PostsPage og CreatePostPage ?
+
             MainPage = new GetPost();
 
             //MainPage = new NavigationPage(new ViewReservations());
@@ -28,6 +28,10 @@ namespace Pantr
             //if (Current.Properties.ContainsKey("Username"))
             //{
             //        var username = Current.Properties["Username"] as string;
+            //MainPage = new NavigationPage(new ViewPost());
+            //if (Current.Properties.ContainsKey("Username"))
+            //{
+            //    //    var username = Current.Properties["Username"] as string;
             //    MainPage = new NavigationPage(new Posts());
             //}
             //else
