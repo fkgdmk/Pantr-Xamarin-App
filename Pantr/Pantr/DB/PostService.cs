@@ -17,61 +17,90 @@ namespace Pantr.DB
         public static async void GetAllPosts(ListView listView)
         {
 
-            var uri = new Uri(string.Format("http://10.111.180.139:45455/api/posts"));
-
+            var uri = new Uri(string.Format("http://10.0.2.2:50001/api/posts"));
             HttpClient client = new HttpClient();
-            IEnumerable<PostViewModel> post = null;
+            IEnumerable<PostViewModelCopy> post = null;
 
             //var uri = new Uri(string.Format("http://10.111.180.139:45457/api/posts"));
-
-            var response = await client.GetAsync(uri);
-
-
-            TimeSpan.FromMinutes(352345235);
-            listView.ItemsSource = post;
-        }
-
-        public static async Task<PostViewModel> GetUsersPost()
-        {
-            HttpClient client = new HttpClient();
-            PostViewModel post = null;
-
-            var uri = new Uri(string.Format("http://10.0.2.2:50001/api/post/getuserspost/1"));
 
             var response = await client.GetAsync(uri);
 
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
-                post = JsonConvert.DeserializeObject<PostViewModel>(content);
+                post = JsonConvert.DeserializeObject< IEnumerable<PostViewModelCopy>>(content);
+
+            }
+            else
+            {
+                throw new Exception("Ingen forbindelse til api");
+            }
+
+
+            listView.ItemsSource = post;
+        }
+
+        public static async Task<PostViewModelCopy> GetUsersPost(int id)
+        {
+            HttpClient client = new HttpClient();
+            PostViewModelCopy post = null;
+
+            //Idet skal udskiftes med brugers id
+            var uri = new Uri(string.Format("http://10.0.2.2:50001/api/post/getuserspost/" + id));
+
+            var response = await client.GetAsync(uri);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                post = JsonConvert.DeserializeObject<PostViewModelCopy>(content);
             } 
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    var content = await response.Content.ReadAsStringAsync();
-            //    Console.WriteLine(content);
-            //    post = JsonConvert.DeserializeObject<IEnumerable<PostViewModel>>(content);
-            //}
+
             return post;
         }
 
-        public static async Task<HttpResponseMessage> CreatePostInDb(PostViewModel post)
+        public static async Task<bool> CreatePostInDb(JObject post)
         {
-            var uri = new Uri(string.Format("http://192.168.1.173:45455/api/post/"));
+            var uri = new Uri(string.Format("http://10.0.2.2:50001/api/post/"));
+             HttpResponseMessage response = null;
+            bool postCreated = false;
 
-            HttpClient client = new HttpClient();
+            using (HttpClient client = new HttpClient())
+            {
+                var json = JsonConvert.SerializeObject(post);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            var json = JsonConvert.SerializeObject(post);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
+                response = await client.PostAsync(uri, content);
 
+                if (response.IsSuccessStatusCode)
+                {
+                    postCreated = true;
+                }
+            }
+            return postCreated;
+        }
+
+        public async Task<bool> DeletePost (int id)
+        {
+            var uri = new Uri("http://10.0.2.2:50001/api/post/" + id);
             HttpResponseMessage response = null;
+            bool postDeleted = false;
 
-            response = await client.PostAsync(uri, content);
-            return response;
+            using (HttpClient client = new HttpClient())
+            {
+                response = await client.DeleteAsync(uri);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    postDeleted = true;
+                }
+            }
+            return postDeleted;
         }
 
         public TimeSpan ConvertIntegerToTimeSpan(int minutesAfterMidnight)
         {
-
             int hours = minutesAfterMidnight / 60;
             int minutes = minutesAfterMidnight % 60;
 

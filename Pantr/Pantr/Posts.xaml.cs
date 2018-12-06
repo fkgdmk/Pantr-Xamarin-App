@@ -1,14 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Android.Net;
+using Pantr.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Pantr.DB;
@@ -23,101 +16,32 @@ namespace Pantr
         {
 
             InitializeComponent();
-            //   listView.ItemsSource = Test;
-            //Console.WriteLine("11111111111111111111111111");
-            //try
-            //{
-            //    Console.WriteLine("222222222222222222222222");
-            //    PostService.GetAllPosts(listView);
-            //    //listView.ItemsSource = Test;
-            //    Console.WriteLine("2,55555555555555555555555");
-            //} catch (Exception e)
-            //{
-            //    Console.WriteLine("3333333333333333333333333333");
-            //    Console.WriteLine("Whaaaaaaaaaaaaaat?");
-            //    Console.WriteLine(e.StackTrace);
-            //}
-        }
-
-        public async void GetAllPosts2()
-        {
-            var client = new HttpClient(new AndroidClientHandler());
-
-            var response = await client.GetAsync("http://192.168.0.22:45457/api/posts");
-            var content = await response.Content.ReadAsStringAsync();
-            Console.WriteLine(content);
-            //var result = JsonConvert.DeserializeObject(content);
-
-            
-           InitializeComponent();
-           
-        //    listView.ItemsSource = GetAllPosts;
-
-        }
-
-
-       
-
-        ObservableCollection<Post> Test = new ObservableCollection<Post> {
-            new Post{Id=1, Address="Enmeget Lang testAddresse 44", Quantity="En masse", Time="Søndag klokken 16", Zipcode = "2200" },
-            new Post{Id=2, Address="Tokevejeveve14", Quantity="En smule", Time="Onsdag klokken 16", Zipcode ="2100" },
-            new Post{Id=3, Address="Charlottenlund Stationsplads 22", Quantity="En mellem", Time="Lørdag klokken 16" , Zipcode = "2720"},
-            new Post{Id=4, Address="Tokevejevevevv16", Quantity="En mellem", Time="Lørdag klokken 16",Zipcode = "2350" },
-            new Post{Id=5, Address="Tokevejevevevve17", Quantity="En mellem", Time="Lørdag klokken 16",Zipcode = "2560" },
-            new Post{Id=6, Address="Borgmester Christiansens Gade 123", Quantity="En mellem", Time="Lørdag klokken 16", Zipcode = "2560" },
-            new Post{Id=7, Address="Tokevejevevevveve19", Quantity="En mellem", Time="Lørdag klokken 16" , Zipcode = "2560"},
-            new Post{Id=8, Address="Lygten 22", Quantity="En mellem", Time="Lørdag klokken 16", Zipcode = "2560" },
-            new Post{Id=9, Address="Stærevej 10", Quantity="En mellem", Time="Lørdag klokken 16", Zipcode = "2560" },
-            new Post{Id=9, Address="Borgmester Jakob Jensens Gade 33", Quantity="En mellem", Time="Lørdag klokken 16", Zipcode = "2560" }
-
-        };
-
-        public class Post
-        {
-            public int Id { get; set; }
-            public string Address { get; set; }
-            public string[] AddresChunks
+            IsBusy = true;
+             try
             {
-                get { return AddresChunks; }
-                set { this.Address.Split(' '); }
-            }
-            public string Quantity { get; set; }
-            public string Time { get; set; }
-            public string Zipcode { get; set; }
+                PostService.GetAllPosts(listView);
+                IsBusy = false;
+            
+            } catch (Exception e)
+            {
+                DisplayAlert("Fejl","Ingen forbindelse til internettet", "Forstået");
+                Console.WriteLine(e.StackTrace);
+             }
         }
+
+  
+     
+
 
         private async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem != null)
             {
                 ((ListView)sender).SelectedItem = null;
-                var selection = e.SelectedItem as Post;
+                var selection = e.SelectedItem as PostViewModelCopy;
                 var claimed = await DisplayAlert("Du vil gerne hente", "post med id " + selection.Id + " som har adressen: " + selection.Address, "OK", "Nej!");
                 if (claimed)
                 {
-                    Console.WriteLine("åh?");
-                
-                    // Kode for hvis et opslag bliver claimed
-
-                    HttpClient client = new HttpClient();
-
-                    Console.WriteLine("åh? igen");
-
-
-                    client.MaxResponseContentBufferSize = 256000;
-
-                    Console.WriteLine("åh 3?");
-
-
-                    //var json = JsonConvert.SerializeObject(selection);
-                   // Console.WriteLine(json);
-
-                    var content = new StringContent("{'Claimed' : True }", Encoding.UTF8, "application/json");
-
-                    Console.WriteLine(content);
-
-
-                    var response = await client.PutAsync("http://localhost:50001/api/put/"+selection.Id, content);
 
                 }
                 else
@@ -132,12 +56,11 @@ namespace Pantr
         {
             if (e.NewTextValue.Length == 0)
             {
-             //   listView.ItemsSource = GetAllPosts;
             }
 
             if (e.NewTextValue.Length > 3)
             {
-                IEnumerable<Post> allRelevantPosts = null;
+                IEnumerable<PostViewModelCopy> allRelevantPosts = null;
                 
                 if (allRelevantPosts == null)
                 {

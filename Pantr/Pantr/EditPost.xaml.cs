@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pantr.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,8 +13,10 @@ namespace Pantr
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class EditPost : ContentPage
 	{
-		public EditPost ()
+        PostViewModelCopy post;
+		public EditPost (PostViewModelCopy post)
 		{
+            this.post = post;
 			InitializeComponent ();
 		}
 	}
