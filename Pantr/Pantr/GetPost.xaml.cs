@@ -1,4 +1,5 @@
-﻿using Pantr.DB;
+﻿using Newtonsoft.Json.Linq;
+using Pantr.DB;
 using Pantr.Models;
 using System;
 using System.Collections.Generic;
@@ -28,10 +29,29 @@ namespace Pantr
             InitializeComponent();
         }
     
-        private void Button_Reserver(object sender, EventArgs e)
+        private async void Button_Reserver(object sender, EventArgs e)
         {
-            
+            PostService service = new PostService();
 
+
+            JObject user = new JObject
+            {
+                { "PK_User", 1 },
+                { "Firstname", "Roland" },
+                { "Surname", "Kock" },
+                { "Phone", 88888888 },
+                { "Email", "roland@kock.nu" },
+                { "IsPanter", "true" },
+                { "FK_Address", 1 },
+                { "FK_Login", 4 }
+            };
+
+            bool response = await service.ClaimPost(user);
+
+            if (response)
+            {
+                DisplayAlert("Reserveret", "Du har reserveret dette pantopslag!", "OK");
+            }
         }
     }
 }

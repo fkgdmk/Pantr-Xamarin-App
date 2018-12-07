@@ -63,7 +63,7 @@ namespace Pantr.DB
             HttpClient client = new HttpClient();
             PostViewModel post = null;
 
-            var uri = new Uri(string.Format("http://10.0.2.2:50001/api/post/1"));
+            var uri = new Uri(string.Format("http://10.0.2.2:50001/api/post/9"));
 
             var response = await client.GetAsync(uri);
 
@@ -75,16 +75,27 @@ namespace Pantr.DB
             return post;
         }
 
-        public static async Task<HttpResponseMessage> ClaimPost(PostViewModel post)
+        public async Task<bool> ClaimPost(JObject user)
         {
-            HttpClient client = new HttpClient();
-            var uri = new Uri(string.Format("http//10.0.2.2:50001/api/claimpost/5"));
+            var uri = new Uri(string.Format("http://10.0.2.2:50001/api/claimpost/9"));
+            HttpResponseMessage response = null;
+            bool postClaimed = false;
 
-            var json = JsonConvert.SerializeObject(post);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            using (HttpClient client = new HttpClient())
+            {
+                var json = JsonConvert.SerializeObject(user);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            var response = await client.GetAsync(uri);
-            
+                response = await client.PostAsync(uri, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    postClaimed = true;
+                }
+            }
+
+            return postClaimed;
         }
 
         public static async Task<bool> CreatePostInDb(JObject post)

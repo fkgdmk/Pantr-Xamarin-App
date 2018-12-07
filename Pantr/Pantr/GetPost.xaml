@@ -4,12 +4,28 @@
              x:Class="Pantr.GetPost">
     <ContentPage.Content>
         <StackLayout>
-            <Image Source="icon.png" HorizontalOptions="Center"/>
-            <Label VerticalOptions="Center" HorizontalOptions="Center" FontSize="14" Text="{Binding Quantity}"/>
-            <Label VerticalOptions="Center" HorizontalOptions="Center" FontSize="14" Text="{Binding Address}"/>
-            <Label VerticalOptions="Center" HorizontalOptions="Center" FontSize="14" Text="{Binding Date}"/>
-            <Label VerticalOptions="Center" HorizontalOptions="Center" FontSize="14" Text="{Binding Time}"/>
-            <Button Text="Annuller" x:Name="submit" Clicked="Button_Reserver" HorizontalOptions="Center"></Button>
+            <Image Source="icon.png"
+                   HorizontalOptions="Center"/>
+            <Label VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   FontSize="14"
+                   Text="{Binding Quantity}"/>
+            <Label VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   FontSize="14"
+                   Text="{Binding Address}"/>
+            <Label VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   FontSize="14"
+                   Text="{Binding Date}"/>
+            <Label VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   FontSize="14"
+                   Text="{Binding Time}"/>
+            <Button Text="Annuller"
+                    x:Name="submit"
+                    Clicked="Button_Reserver"
+                    HorizontalOptions="Center"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
