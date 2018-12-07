@@ -51,6 +51,7 @@ namespace Pantr
             if (response)
             {
                 DisplayAlert("Reserveret", "Du har reserveret dette pantopslag!", "OK");
+                //TESTTESTTTEST
             }
         }
     }
