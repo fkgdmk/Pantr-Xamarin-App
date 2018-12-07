@@ -48,13 +48,13 @@ namespace Pantr
             }
         }
 
-        private async void edit (object sender, EventArgs e)
+        private async void edit(object sender, EventArgs e)
         {
-            var editPost = new EditPost();
+            //var editpost = new editpost();
 
-            await Navigation.PushModalAsync(editPost);
+            //await navigation.pushmodalasync(editpost);
 
-            //DisplayAlert("test", "test", "test", "test");
+            //displayalert("test", "test", "test", "test");
         }
 
         private async void submit_Clicked(object sender, EventArgs e)

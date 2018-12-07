@@ -16,12 +16,12 @@ namespace Pantr.DB
     {
         public static async void GetAllPosts(ListView listView)
         {
-
             var uri = new Uri(string.Format("http://10.0.2.2:50001/api/posts"));
+
             HttpClient client = new HttpClient();
             IEnumerable<PostViewModelCopy> post = null;
 
-            //var uri = new Uri(string.Format("http://10.111.180.139:45457/api/posts"));
+
 
             var response = await client.GetAsync(uri);
 
@@ -58,12 +58,53 @@ namespace Pantr.DB
 
             return post;
         }
+        public static async Task<PostViewModel> GetPost()
+        {
+            HttpClient client = new HttpClient();
+            PostViewModel post = null;
+
+            var uri = new Uri(string.Format("http://10.0.2.2:50001/api/post/9"));
+
+            var response = await client.GetAsync(uri);
+
+            if(response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                post = JsonConvert.DeserializeObject<PostViewModel>(content);
+            }
+            return post;
+        }
+
+        public async Task<bool> ClaimPost(JObject user)
+        {
+            var uri = new Uri(string.Format("http://10.0.2.2:50001/api/claimpost/9"));
+            HttpResponseMessage response = null;
+            bool postClaimed = false;
+
+            using (HttpClient client = new HttpClient())
+            {
+                var json = JsonConvert.SerializeObject(user);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                response = await client.PostAsync(uri, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    postClaimed = true;
+                }
+            }
+
+            return postClaimed;
+        }
 
         public static async Task<bool> CreatePostInDb(JObject post)
         {
             var uri = new Uri(string.Format("http://10.0.2.2:50001/api/post/"));
+
              HttpResponseMessage response = null;
             bool postCreated = false;
+
 
             using (HttpClient client = new HttpClient())
             {
@@ -108,7 +149,6 @@ namespace Pantr.DB
 
             return time;
         }
-
     }
 }
 

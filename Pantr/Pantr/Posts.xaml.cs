@@ -5,7 +5,8 @@ using Pantr.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Pantr.DB;
-
+using System.Net.Http;
+using Xamarin.Android.Net;
 
 namespace Pantr
 {
@@ -16,11 +17,37 @@ namespace Pantr
         {
 
             InitializeComponent();
+            //   listView.ItemsSource = Test;
+            //Console.WriteLine("11111111111111111111111111");
+            //try
+            //{
+            //    Console.WriteLine("222222222222222222222222");
+                PostService.GetAllPosts(listView);
+            //    //listView.ItemsSource = Test;
+            //    Console.WriteLine("2,55555555555555555555555");
+            //} catch (Exception e)
+            //{
+            //    Console.WriteLine("3333333333333333333333333333");
+            //    Console.WriteLine("Whaaaaaaaaaaaaaat?");
+            //    Console.WriteLine(e.StackTrace);
+            //}
+        }
+
+        public async void GetAllPosts2()
+        {
+            var client = new HttpClient(new AndroidClientHandler());
+
+            var response = await client.GetAsync("http://192.168.0.22:45457/api/posts");
+            var content = await response.Content.ReadAsStringAsync();
+            Console.WriteLine(content);
+            //var result = JsonConvert.DeserializeObject(content);
+
             IsBusy = true;
              try
             {
                 PostService.GetAllPosts(listView);
                 IsBusy = false;
+
             
             } catch (Exception e)
             {
