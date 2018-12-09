@@ -16,14 +16,13 @@ namespace Pantr
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ViewPost : ContentPage
 	{
-        //Post post = new Post { Id = 1, Address = "Lygten 18, 2400 Kbh", Quantity = "1 Kasse", Date="11/12/2018", Time = "10.30-12.00" };
+        PostViewModelCopy post;
         public ViewPost ()
 		{            
         }
-
         protected override async void OnAppearing()
         {
-            PostViewModelCopy post = await PostService.GetUsersPost(5);
+            this.post = await PostService.GetUsersPost(5);
             BindingContext = post;
             InitializeComponent();
         }
@@ -42,11 +41,7 @@ namespace Pantr
 
         private async void edit(object sender, EventArgs e)
         {
-            //var editpost = new editpost();
-
-            //await navigation.pushmodalasync(editpost);
-
-            //displayalert("test", "test", "test", "test");
+            var editPost = new EditPost(post);
         }
 
         private async void submit_Clicked(object sender, EventArgs e)

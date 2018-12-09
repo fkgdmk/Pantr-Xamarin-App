@@ -1,12 +1,53 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Pantr.EditPost">
+             x:Class="Pantr.EditPost"
+             Title="Rediger">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Label Text="Rediger" HorizontalOptions="Center" FontSize="20" VerticalOptions="Center"/>
+            <DatePicker FontSize="14" HorizontalOptions="Center" x:Name="date" ></DatePicker>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <TimePicker FontSize="14" Format="HH:mm" x:Name="startTime"></TimePicker>
+                <Label Text=" - " VerticalOptions="Center"/>
+                <TimePicker FontSize="14" Format="HH:mm" x:Name="endTime"></TimePicker>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                <Entry Keyboard="Numeric" FontSize="14" x:Name="numberOfBags"></Entry>
+                <Label Text="Poser" FontSize="14" VerticalOptions="Center" HorizontalOptions="Start"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                <Entry Keyboard="Numeric" FontSize="14" x:Name="numberOfSacks"></Entry>
+                <Label Text="Sække" FontSize="14" VerticalOptions="Center" HorizontalOptions="Start"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                <Entry Keyboard="Numeric" x:Name="numberOfCases"  FontSize="14"></Entry>
+                <Label Text="Kasser"  FontSize="14" VerticalOptions="Center" HorizontalOptions="Start"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                <Entry FontSize="14" x:Name="address"></Entry>
+            </StackLayout>
+            <Picker x:Name="picker" Title="Primære Materialetype" FontSize="14" HorizontalOptions="Center">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Glas</x:String>
+                        <x:String>Metal</x:String>
+                        <x:String>Hård plast</x:String>
+                        <x:String>Blød plast</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+            <ActivityIndicator x:Name="spinner" 
+                               IsRunning="{Binding IsBusy}"
+                               IsVisible="{Binding IsBusy}"
+                               HeightRequest="40"
+                               VerticalOptions="CenterAndExpand"
+                               HorizontalOptions="CenterAndExpand">
+                <ActivityIndicator.WidthRequest>
+                    <OnPlatform x:TypeArguments="x:Double" iOS="100" Android="50"/>
+                </ActivityIndicator.WidthRequest>
+            </ActivityIndicator>
+            <Button x:Name="submit" Clicked="submit_Clicked" Text="Slå op" HorizontalOptions="Center" WidthRequest="120"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

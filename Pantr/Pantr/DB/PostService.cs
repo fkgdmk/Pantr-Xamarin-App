@@ -122,6 +122,28 @@ namespace Pantr.DB
             return postCreated;
         }
 
+        public async Task<bool> UpdatePost (int id, JObject updatedPost)
+        {
+            var uri = new Uri(string.Format("http://10.0.2.2:50001/api/updatepost/" + id));
+            HttpResponseMessage response = null;
+            bool postUpdated = false;
+
+            using (HttpClient client = new HttpClient())
+            {
+                var json = JsonConvert.SerializeObject(updatedPost);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                response = await client.PutAsync(uri, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    postUpdated = true;
+                }
+            }
+            return postUpdated;
+        }
+
         public async Task<bool> DeletePost (int id)
         {
             var uri = new Uri("http://10.0.2.2:50001/api/post/" + id);
