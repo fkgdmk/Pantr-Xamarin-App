@@ -30,7 +30,7 @@ namespace Pantr
             double start = startTime.Time.TotalMinutes;
             double end = endTime.Time.TotalMinutes;
             string bags = numberOfBags.Text;
-            string boxes = numberOfBoxes.Text;
+            string cases = numberOfCases.Text;
             string sacks = numberOfSacks.Text;
             string materialType = null;
 
@@ -41,13 +41,11 @@ namespace Pantr
             }
 
             //Hvis der ikke er valgt en mægnde
-            if (bags == null && boxes == null && sacks == null)
+            if (bags == null && cases == null && sacks == null)
             {
                 DisplayAlert("Ups", "Udfyld mængden af pant", "OK");
                 return;
             }
-            //Formaterer poser, sække og kasser til en string
-            string quantity = FormatQuantityAsString(bags, boxes, sacks);
 
             //Hvis der ikke er valgt materiale type
             if (picker.SelectedIndex > -1)
@@ -65,23 +63,28 @@ namespace Pantr
             submit.IsVisible = false;
             IsBusy = true;
 
-            JObject post = new JObject();
-            JObject material = new JObject();
-            JObject giver = new JObject();
+            JObject tbl_Material = new JObject();
+            tbl_Material.Add("Type", materialType);
 
-            material.Add("Type", materialType);
-            giver.Add("Id", 5);
+            //JObject tbl_User = new JObject();
+            ////Skal ændres til brugers id
+            //tbl_User.Add("PK_User", 5);
 
-            //Skal ændres til brugers id
-            post.Add("Giver", giver);
-            post.Add("Date", dateObj);
-            post.Add("StartTime", (int)start);
-            post.Add("EndTime", (int)end);
-            post.Add("Quantity", quantity);
-            post.Add("Material", material);
+            JObject tbl_Quantity = new JObject();
+            tbl_Quantity.Add("Bags", Convert.ToInt32(bags));
+            tbl_Quantity.Add("Sacks", Convert.ToInt32(sacks));
+            tbl_Quantity.Add("Cases", Convert.ToInt32(cases));
+
+            JObject tbl_Post = new JObject();
+            tbl_Post.Add("FK_Giver", 5);
+            tbl_Post.Add("Date", dateObj);
+            tbl_Post.Add("StartTime", (int)start);
+            tbl_Post.Add("EndTime", (int)end);
+            tbl_Post.Add("tbl_Material", tbl_Material);
+            tbl_Post.Add("tbl_Quantity", tbl_Quantity);
 
 
-            bool response = await PostService.CreatePostInDb(post);
+            bool response = await PostService.CreatePostInDb(tbl_Post);
 
             if (response)
             {
