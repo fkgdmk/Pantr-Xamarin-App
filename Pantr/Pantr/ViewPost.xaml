@@ -11,7 +11,7 @@
                         NumberOfTapsRequired="1" />
                 </Image.GestureRecognizers>
             </Image>
-            <Image WidthRequest="80" Source="icon.png" HorizontalOptions="Center"/>
+            <Image WidthRequest="80" Source="icon.png" HorizontalOptions="Center" Margin="0, 10, 0, 0"/>
             <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Center">
                 <Image WidthRequest="12" Source="recyc.png"/>
                 <Label VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding Quantity}"/>

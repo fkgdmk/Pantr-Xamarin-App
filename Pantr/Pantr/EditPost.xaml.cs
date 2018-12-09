@@ -61,14 +61,14 @@ namespace Pantr
 
             if (dateObj < DateTime.Today)
             {
-                DisplayAlert("Ups", "Datoen skal være i fremtiden", "OK");
+                await DisplayAlert("Ups", "Datoen skal være i fremtiden", "OK");
                 return;
             }
 
             //Hvis der ikke er valgt en mægnde
             if (bags == null && cases == null && sacks == null)
             {
-                DisplayAlert("Ups", "Udfyld mængden af pant", "OK");
+                await DisplayAlert("Ups", "Udfyld mængden af pant", "OK");
                 return;
             }
 
@@ -81,7 +81,7 @@ namespace Pantr
             //Hvis tidsperioden er sat til mindre end time 
             if (end - start < 60)
             {
-                DisplayAlert("Ups", "Perioden skal vare mindst en time", "OK");
+                await DisplayAlert("Ups", "Perioden skal vare mindst en time", "OK");
                 return;
             }
 
@@ -117,11 +117,11 @@ namespace Pantr
             {
                 IsBusy = false;
                 submit.IsVisible = true;
-                DisplayAlert("Sådan!", "Pantopslag blev redigeret", "OK");
+                await DisplayAlert("Sådan!", "Pantopslag blev redigeret", "OK");
                 await Navigation.PushModalAsync(new ViewPost());
             } else
             {
-                DisplayAlert("Ups", "Der opstod en fejl. Prøv igen", "OK");
+                await DisplayAlert("Ups", "Der opstod en fejl. Prøv igen", "OK");
             }
         }
 

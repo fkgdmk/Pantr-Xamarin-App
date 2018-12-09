@@ -21,7 +21,7 @@ namespace Pantr
 
             //Kode forslag: PostsPage og CreatePostPage ?
 
-            MainPage = new GetPost();
+            MainPage = new ViewPost();
 
             //MainPage = new NavigationPage(new ViewReservations());
 

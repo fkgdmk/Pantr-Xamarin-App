@@ -1,12 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Pantr.DB;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Pantr.Models;
@@ -25,6 +19,7 @@ namespace Pantr
             this.post = await PostService.GetUsersPost(5);
             BindingContext = post;
             InitializeComponent();
+            editBtn.IsVisible = !post.Claimed;
         }
 
         void OnImageNameTapped(object sender, EventArgs args)
@@ -41,7 +36,7 @@ namespace Pantr
 
         private async void edit(object sender, EventArgs e)
         {
-            var editPost = new EditPost(post);
+            await Navigation.PushModalAsync(new EditPost(post));
         }
 
         private async void submit_Clicked(object sender, EventArgs e)
@@ -50,7 +45,7 @@ namespace Pantr
             bool response = await postService.DeletePost(5);
             if (response)
             {
-                DisplayAlert("Annulleret", "Dit pantopslag blev annulleret", "OK");
+                await DisplayAlert("Annulleret", "Dit pantopslag blev annulleret", "OK");
             }
         }
     }
