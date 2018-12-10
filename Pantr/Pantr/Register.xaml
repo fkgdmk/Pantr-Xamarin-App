@@ -3,58 +3,63 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Pantr.Register">
     <ContentPage.Content>
+        <!--Scrollview så man kan se alle controls på siden-->
         <ScrollView>
             <StackLayout Orientation="Vertical" Padding="20">
+                
+                <!--Her følger en masse controls som brugeren skal udfylde når de oprettes-->
+                <!--det gælder alt fra login til adresse-->
                 <StackLayout Orientation="Vertical" Padding="0,0,0,40">
                     <Entry Placeholder="Brugernavn"
-                   x:Name="userNameRegister"/>
+                           x:Name="userNameRegister"/>
 
                     <Entry Placeholder="Kodeord"
-                   x:Name="password"
-                   IsPassword="True"/>
+                           x:Name="password"
+                           IsPassword="True"/>
 
                     <Entry Placeholder="Gentag kodeord"
-                   x:Name="confirmPassword"
-                   TextChanged="confirmPassword_TextChanged"
-                   IsPassword="True"/>
+                           x:Name="confirmPassword"
+                           TextChanged="confirmPassword_TextChanged"
+                           IsPassword="True"/>
                 </StackLayout>
 
 
                 <Entry Placeholder="Fornavn"
-                   x:Name="firstName"/>
+                       x:Name="firstName"/>
 
                 <Entry Placeholder="Efternavn"
-                   x:Name="surname"/>
+                       x:Name="surname"/>
 
                 <Entry Placeholder="E-mail"
-                   x:Name="email"
-                   Keyboard="Email"/>
+                       x:Name="email"
+                       Keyboard="Email"/>
 
                 <Entry Placeholder="Telefonnummer"
-                   x:Name="phone"
-                   Keyboard="Telephone"/>
+                       x:Name="phone"
+                       Keyboard="Telephone"/>
 
                 <Entry Placeholder="Adresse"
-                   x:Name="address"/>
+                       x:Name="address"/>
 
                 <Entry Placeholder="Postnummer"
                        x:Name="zip"/>
 
+                <!--Switch bruges til at sætte noget true eller false-->
                 <StackLayout Orientation="Horizontal">
                     <Switch x:Name="isPanter"/>
                     <Label Text="Panter?"/>
                 </StackLayout>
 
+                <!--Switch bruges til at sætte noget true eller false-->
                 <StackLayout Orientation="Horizontal">
                     <Switch x:Name="isAdult"/>
                     <Label Text="Jeg medgiver jeg er over 18 år gammel"/>
                 </StackLayout>
 
                 <Button Text="Submit"
-                    HorizontalOptions="End"
-                    Clicked="Button_Clicked"
-                    x:Name="submitButton"/>
-
+                        HorizontalOptions="End"
+                        Clicked="Button_Clicked"
+                        x:Name="submitButton"/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

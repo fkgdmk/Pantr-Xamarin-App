@@ -12,8 +12,10 @@
                       IsPullToRefreshEnabled="True"
                       ItemSelected="ReservationsView_ItemSelected">
                 <ListView.ItemTemplate>
-                    <DataTemplate >
-                        <ViewCell >
+                    <!--Sætter udseendet for cellerne i listviewet-->
+                    <!--og sætter bindings op-->
+                    <DataTemplate>
+                        <ViewCell>
                             <StackLayout Orientation="Horizontal">
                                 <Image WidthRequest="50" 
                                        Source="icon.png"/>

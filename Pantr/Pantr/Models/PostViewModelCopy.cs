@@ -8,7 +8,10 @@ namespace Pantr.Models
     {
         public string Material { get; set; }
         public string Quantity { get; set; }
-        public string Address { get; set; } 
+        public int Bags { get; set; }
+        public int Sacks { get; set; }
+        public int Cases { get; set; }
+        public string Address { get; set; }
         public string PeriodForPickup { get; set; }
         public string Date { get; set; }
         public string StartTime { get; set; }

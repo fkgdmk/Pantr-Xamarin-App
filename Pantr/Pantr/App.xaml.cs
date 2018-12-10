@@ -9,7 +9,7 @@ namespace Pantr
     {
         public App()
         {
-            InitializeComponent();
+            //InitializeComponent();
             //if (Current.Properties.ContainsKey("Username"))
             //{
             //    MainPage = new NavigationPage(new Posts());

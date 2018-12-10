@@ -12,33 +12,36 @@ namespace Pantr.DB
 {
     class UserService
     {
+
+        //Metode som forsøger at registrerer en bruge og returnerer en boolean alt efter om det gik godt eller dårligt
         public async Task<bool> RegisterUser(JObject registerUser)
-        //public async Task<UserViewModelTest> RegisterUser(UserViewModelTest registerUser)
         {
-            //UserViewModelTest registeredUser = null;
             bool registered = false;
+
             var controllerName = "users";
             var basicClientApi = string.Format("http://10.0.2.2:50001/api/{0}", controllerName);
             try
             {
+                //bruger using så resourcerne bliver disposed med det samme
                 using (var httpClient = new HttpClient())
                 {
+                    //serializer jobjectet fra viewet til json
                     var json = JsonConvert.SerializeObject(registerUser);
-                    var content = new StringContent(json, Encoding.UTF8, "application/json");
-                    content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
+                    //sætter content, encoding og contenttype så det er klart til apikaldet
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                    //foretager api kaldet
                     var response = await httpClient.PostAsync(basicClientApi, content);
 
+                    //sætter registered til true hvis alt går godt
+                    //skal håndteres hvis der returneres noget andet end statuscode ok
                     if (!response.IsSuccessStatusCode)
                     {
                         Console.WriteLine(response.StatusCode);
                     }
                     else
                     {
-                        var rawResponse = await response.Content.ReadAsStringAsync();
-
-                        JObject o = JObject.Parse(rawResponse);
-                        //registeredUser = JsonConvert.DeserializeObject<UserViewModelTest>(o.ToString());
                         registered = true;
                     }
                 }
@@ -48,7 +51,6 @@ namespace Pantr.DB
                 Console.WriteLine(e.StackTrace);
             }
             return registered;
-            //return registeredUser;
         }
     }
 }

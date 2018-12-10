@@ -18,8 +18,11 @@ namespace Pantr
 	public partial class ViewPost : ContentPage
 	{
         //Post post = new Post { Id = 1, Address = "Lygten 18, 2400 Kbh", Quantity = "1 Kasse", Date="11/12/2018", Time = "10.30-12.00" };
+       
+        //denne construktor bruges fra ViewReservations så afmeld knappen kun vises hvis isOwnPost = true
         public ViewPost (PostViewModelCopy post, bool isOwnPost)
-		{
+        { 
+            //afmeld knappen vises kun hvis isOwnPost er true
             if (!isOwnPost) afmeldButton.IsEnabled = false;
             BindingContext = post;
             InitializeComponent();
@@ -67,11 +70,16 @@ namespace Pantr
             }
         }
 
+        //Event som afmelder ens egen transaction
         private async void AfmeldButton_Clicked(object sender, EventArgs e)
         {
             TransactionService transactionService = new TransactionService();
+           
+            //caster bindingcontexten (som sættes i constructoren) til en postviewmodelcopy
             var cancelledPost = (PostViewModelCopy)BindingContext;
 
+            //Instantierer et jobject som bruges i transactionservice med post og panter id
+            //id'erne bruges til at afmelde den rette post
             JObject postJObject = new JObject();
             postJObject.Add("postId", cancelledPost.Id);
 
@@ -80,7 +88,8 @@ namespace Pantr
 
             bool result = await transactionService.CancelReservation(postJObject);
 
-            if (result) await Navigation.PushAsync(new Posts());
+            //Hvis den succesfuldt blev annuleret/afmeld sendes vi tilbage til vores reservationer
+            if (result) await Navigation.PushAsync(new ViewReservations());
         }
     }
 }
