@@ -1,12 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Pantr.DB;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Pantr.Models;
@@ -16,31 +10,16 @@ namespace Pantr
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ViewPost : ContentPage
 	{
-        public class Post
-        {
-            public int Id { get; set; }
-            public string Address { get; set; }
-            public string Quantity { get; set; }
-            public string Date { get; set; }
-            public string Time { get; set; }
-        }
-
-        //Post post = new Post { Id = 1, Address = "Lygten 18, 2400 Kbh", Quantity = "1 Kasse", Date="11/12/2018", Time = "10.30-12.00" };
+        PostViewModelCopy post;
         public ViewPost ()
 		{            
         }
-
         protected override async void OnAppearing()
         {
-            PostViewModel post = await PostService.GetUsersPost();
+            this.post = await PostService.GetUsersPost(5);
             BindingContext = post;
             InitializeComponent();
-        }
-
-        public string FormatTime(string time)
-        {
-            string[] strArr = time.Split(':');
-            return strArr[0] + ":" + strArr[1]; 
+            editBtn.IsVisible = !post.Claimed;
         }
 
         void OnImageNameTapped(object sender, EventArgs args)
@@ -55,19 +34,19 @@ namespace Pantr
             }
         }
 
-        private async void edit (object sender, EventArgs e)
+        private async void edit(object sender, EventArgs e)
         {
-            var editPost = new EditPost();
-
-            await Navigation.PushModalAsync(editPost);
-
-            //DisplayAlert("test", "test", "test", "test");
+            await Navigation.PushModalAsync(new EditPost(post));
         }
 
-        private void submit_Clicked(object sender, EventArgs e)
+        private async void submit_Clicked(object sender, EventArgs e)
         {
-            DisplayAlert("test", "", "test");
-
+            PostService postService = new PostService();
+            bool response = await postService.DeletePost(5);
+            if (response)
+            {
+                await DisplayAlert("Annulleret", "Dit pantopslag blev annulleret", "OK");
+            }
         }
     }
 }

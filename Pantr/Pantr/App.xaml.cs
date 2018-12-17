@@ -10,18 +10,34 @@ namespace Pantr
         public App()
         {
             InitializeComponent();
-            MainPage = new Posts();
+            //if (Current.Properties.ContainsKey("Username"))
+            //{
+            //    MainPage = new NavigationPage(new Posts());
+            //}
+            //else
+            //{
+            //    MainPage = new NavigationPage(new Login());
+            //}
 
-            /**    if (Current.Properties.ContainsKey("Username"))
-                {
-                    //    var username = Current.Properties["Username"] as string;
-                    MainPage = new Posts();
-                }
-                else
-                {
-                    MainPage = new NavigationPage(new Login());
-                }
-        */
+            //Kode forslag: PostsPage og CreatePostPage ?
+
+            MainPage = new ViewPost();
+
+            //MainPage = new NavigationPage(new ViewReservations());
+
+            //if (Current.Properties.ContainsKey("Username"))
+            //{
+            //        var username = Current.Properties["Username"] as string;
+            //MainPage = new NavigationPage(new ViewPost());
+            //if (Current.Properties.ContainsKey("Username"))
+            //{
+            //    //    var username = Current.Properties["Username"] as string;
+            //    MainPage = new NavigationPage(new Posts());
+            //}
+            //else
+            //{
+            //    MainPage = new NavigationPage(new Login());
+            //}
         }
 
         protected override void OnStart()
