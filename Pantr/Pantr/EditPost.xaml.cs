@@ -1,20 +1,13 @@
 ﻿using Newtonsoft.Json.Linq;
 using Pantr.DB;
-using Pantr.Models;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace Pantr
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class EditPost : ContentPage
 	{
         PostViewModelCopy post;
@@ -132,4 +125,5 @@ namespace Pantr
         }
 
     }
+
 }

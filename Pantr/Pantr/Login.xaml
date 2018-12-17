@@ -13,8 +13,8 @@
                    WidthRequest="200"
                    FontSize="20"
                    x:Name="userPassword"/>
-            <!--Adder padding til et label-->
             <StackLayout Orientation="Horizontal">
+                <!--ContentView er den eneste måde at tilføje padding til et label-->
                 <ContentView Padding="10">
                     <Label Text="Registrér her"
                    HorizontalOptions="Start"
@@ -27,8 +27,6 @@
                         Clicked="Button_Clicked"
                         x:Name="loginButton"/>
             </StackLayout>
-            <Button Text="Logout"
-                    Clicked="Button_Clicked_1"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

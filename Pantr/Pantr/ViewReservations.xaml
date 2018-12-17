@@ -12,8 +12,10 @@
                       IsPullToRefreshEnabled="True"
                       ItemSelected="ReservationsView_ItemSelected">
                 <ListView.ItemTemplate>
-                    <DataTemplate >
-                        <ViewCell >
+                    <!--Sætter udseendet for cellerne i listviewet-->
+                    <!--og sætter bindings op-->
+                    <DataTemplate>
+                        <ViewCell>
                             <StackLayout Orientation="Horizontal">
                                 <Image WidthRequest="50" 
                                        Source="icon.png"/>
@@ -54,9 +56,12 @@
                                         <Image WidthRequest="10" 
                                                Source="time.png" 
                                                Margin="0,-2,0,-2"/>
-                                        <Label Text="{Binding PeriodForPickup}" 
-                                               FontSize="Micro" 
-                                               Margin="0,-2,0,-2"/>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Kl "/>
+                                            <Label Text="{Binding StartTime}"/>
+                                            <Label Text=" - "/>
+                                            <Label Text="{Binding EndTime}"/>
+                                        </StackLayout>
                                     </StackLayout>
                                 </StackLayout>
                             </StackLayout>
