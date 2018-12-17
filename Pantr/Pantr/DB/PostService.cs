@@ -98,7 +98,7 @@ namespace Pantr.DB
             return postClaimed;
         }
 
-        public static async Task<bool> CreatePostInDb(JObject post)
+        public async Task<bool> CreatePostInDb(JObject post)
         {
             var uri = new Uri(string.Format("http://10.0.2.2:50001/api/post/"));
 
@@ -132,7 +132,6 @@ namespace Pantr.DB
             {
                 var json = JsonConvert.SerializeObject(updatedPost);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
                 response = await client.PutAsync(uri, content);
 
@@ -160,16 +159,6 @@ namespace Pantr.DB
                 }
             }
             return postDeleted;
-        }
-
-        public TimeSpan ConvertIntegerToTimeSpan(int minutesAfterMidnight)
-        {
-            int hours = minutesAfterMidnight / 60;
-            int minutes = minutesAfterMidnight % 60;
-
-            TimeSpan time = new TimeSpan(hours, minutes, 0);
-
-            return time;
         }
     }
 }

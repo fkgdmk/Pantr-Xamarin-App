@@ -24,11 +24,15 @@ namespace Pantr
             InitializeComponent();
             this.post = post;
             submit.IsVisible = true;
+            //Property IsBusy bruges til at starte spinneren når der bliver sendt data
             IsBusy = false;
+            //Ved at sætte BindingContext til this er det muligt at sætte værdierne på xaml elementerne
             BindingContext = this;
+            //Da datoen kommer som en string skal den parses til et Date objekt
+            //CultureInfo giver information hvilken kalender/tidszone der bruges
             DateTime postDate = DateTime.ParseExact(post.Date, "dd-MM-yyyy", CultureInfo.InvariantCulture);
 
-            //Hente input felterne fra viewet og sætter deres værdier til pantopslagets 
+            //Henter input felterne fra viewet og sætter deres værdier til pantopslagets data
             date.Date = postDate;
             startTime.Time = ConvertToTimeSpan(post.StartTime);
             endTime.Time = ConvertToTimeSpan(post.EndTime);
@@ -42,8 +46,10 @@ namespace Pantr
             }
         }
 
+        //For at tilføje default data til et TimePicker elementer skal dataen være formateret som en TimeSpan
         public TimeSpan ConvertToTimeSpan (string time)
         {
+            //Splitter klokkeslættet på : og får så et array med kun time og minutter
             string[] timeArr = time.Split(':');
             TimeSpan toTimeSpan = new TimeSpan(Convert.ToInt32(timeArr[0]), Convert.ToInt32(timeArr[1]), 0);
             return toTimeSpan;
@@ -51,6 +57,7 @@ namespace Pantr
 
         private async void submit_Clicked(object sender, EventArgs e)
         {
+            //Udhender data fra input felterne og formaterer dem
             DateTime dateObj = date.Date;
             double start = startTime.Time.TotalMinutes;
             double end = endTime.Time.TotalMinutes;
@@ -59,6 +66,7 @@ namespace Pantr
             string sacks = numberOfSacks.Text;
             string materialType = null;
 
+            //Hvis den valgte dato ikke er i fremtiden
             if (dateObj < DateTime.Today)
             {
                 await DisplayAlert("Ups", "Datoen skal være i fremtiden", "OK");
@@ -85,15 +93,12 @@ namespace Pantr
                 return;
             }
 
+            //Gemmer knappen og starter spinneren 
             submit.IsVisible = false;
             IsBusy = true;
 
             JObject tbl_Material = new JObject();
             tbl_Material.Add("Type", materialType);
-
-            //JObject tbl_User = new JObject();
-            ////Skal ændres til brugers id
-            //tbl_User.Add("PK_User", 5);
 
             JObject tbl_Quantity = new JObject();
             tbl_Quantity.Add("Bags", Convert.ToInt32(bags));
@@ -109,10 +114,11 @@ namespace Pantr
             tbl_Post.Add("tbl_Material", tbl_Material);
             tbl_Post.Add("tbl_Quantity", tbl_Quantity);
 
-
             PostService postService = new PostService();
+            //Kalder PostService klassens UpdatePost metode og sender id på brugeren og pantopslaget med
             bool response = await postService.UpdatePost(5, tbl_Post);
 
+            //UpdatePost returnere true hvis pantopslaget blev ændret succesfuld og false hvis der skete en fejl
             if (response)
             {
                 IsBusy = false;

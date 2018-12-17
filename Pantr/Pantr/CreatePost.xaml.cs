@@ -26,6 +26,7 @@ namespace Pantr
 
         private async void submit_Clicked(object sender, EventArgs e)
         {
+            //Udhender data fra input felterne og formaterer dem
             DateTime dateObj = date.Date;
             double start = startTime.Time.TotalMinutes;
             double end = endTime.Time.TotalMinutes;
@@ -34,13 +35,14 @@ namespace Pantr
             string sacks = numberOfSacks.Text;
             string materialType = null;
 
+            //Hvis den valgte dato ikke er i fremtiden
             if (dateObj < DateTime.Today)
             {
                 await DisplayAlert("Ups", "Datoen skal være i fremtiden", "OK");
                 return;
             }
 
-            //Hvis der ikke er valgt en mægnde
+            //Hvis der ikke er valgt en mængde
             if (bags == null && cases == null && sacks == null)
             {
                 await DisplayAlert("Ups", "Udfyld mængden af pant", "OK");
@@ -60,15 +62,12 @@ namespace Pantr
                 return;
             }
 
+            //Gemmer knappen og starter spinneren
             submit.IsVisible = false;
             IsBusy = true;
 
             JObject tbl_Material = new JObject();
             tbl_Material.Add("Type", materialType);
-
-            //JObject tbl_User = new JObject();
-            ////Skal ændres til brugers id
-            //tbl_User.Add("PK_User", 5);
 
             JObject tbl_Quantity = new JObject();
             tbl_Quantity.Add("Bags", Convert.ToInt32(bags));
@@ -83,39 +82,21 @@ namespace Pantr
             tbl_Post.Add("tbl_Material", tbl_Material);
             tbl_Post.Add("tbl_Quantity", tbl_Quantity);
 
+            //Kalder PostService klassens CreatePost metode og pantopslaget med
+            PostService postService = new PostService();
+            bool response = await postService.CreatePostInDb(tbl_Post);
 
-            bool response = await PostService.CreatePostInDb(tbl_Post);
-
+            //CreatePost returnere true hvis pantopslaget blev ændret succesfuld og false hvis der skete en fejl
             if (response)
             {
                 IsBusy = false;
                 submit.IsVisible = true;
                 await DisplayAlert("Sådan!", "Pantopslag blev oprettet", "OK");
+            } else
+            {
+                await DisplayAlert("Ups", "Der skete en fejl. Prøv igen", "OK");
             }
 
         }
-
-        private string FormatQuantityAsString(string bags, string boxes, string sacks)
-        {
-            //Tjekker om typen er udfyldt og parser væriden til en integer
-            int numberOfBags = bags != null ? int.Parse(bags) : 0;
-            int numberOfSacks = sacks != null ? int.Parse(sacks) : 0;
-            int numberOfBoxes = boxes != null ? int.Parse(boxes) : 0;
-
-            //Tjekker om typen skal stå i ental eller flertal
-            string bagsForm = numberOfBags == 1 ? "Pose" : "Poser";
-            string sacksForm = numberOfSacks == 1 ? "Sæk" : "Sække";
-            string boxesForm = numberOfBoxes == 1 ? "Kasse" : "Kasser";
-
-            //Tilføj kun type hvis antallet ikke er nul
-            string bagsString = numberOfBags != 0 ? numberOfBags + " " + bagsForm + " " : "";
-            string sacksString = numberOfSacks != 0 ? numberOfSacks + " " + sacksForm + " " : "";
-            string boxesString = numberOfBoxes != 0 ? numberOfBoxes + " " + boxesForm : " ";
-
-            string quantity = bagsString + sacksString + boxesString;
-
-            return quantity;
-        }
-
     }
 }
