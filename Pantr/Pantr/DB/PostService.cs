@@ -14,22 +14,25 @@ namespace Pantr.DB
 {
     public class PostService
     {
-        public static async void GetAllPosts(ListView listView)
+        public static async Task<IEnumerable<PostViewModelCopy>> GetAllPosts(String zipcode)
         {
-            var uri = new Uri(string.Format("http://10.0.2.2:50001/api/posts"));
+            Uri uri = null;
+            if (zipcode.Equals(""))
+            {
+                uri = new Uri(string.Format("http://10.0.2.2:50001/api/posts"));
+            }
+            else
+            {
+                uri = new Uri(string.Format("http://10.0.2.2:50001/api/posts/{0}",zipcode));
 
+            }
             HttpClient client = new HttpClient();
             IEnumerable<PostViewModelCopy> post = null;
-
-
-
             var response = await client.GetAsync(uri);
-
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
                 post = JsonConvert.DeserializeObject< IEnumerable<PostViewModelCopy>>(content);
-
             }
             else
             {
@@ -37,7 +40,7 @@ namespace Pantr.DB
             }
 
 
-            listView.ItemsSource = post;
+            return post;
         }
 
         public static async Task<PostViewModelCopy> GetUsersPost(int id)

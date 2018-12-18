@@ -45,7 +45,8 @@ namespace Pantr
             IsBusy = true;
              try
             {
-                PostService.GetAllPosts(listView);
+                IEnumerable<PostViewModelCopy> allPosts = (IEnumerable < PostViewModelCopy >) PostService.GetAllPosts("");
+                listView.ItemsSource = allPosts;
                 IsBusy = false;
 
             
@@ -81,21 +82,18 @@ namespace Pantr
 
         private void ZipcodeSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (e.NewTextValue.Length == 0)
-            {
-            }
-
             if (e.NewTextValue.Length > 3)
             {
-                IEnumerable<PostViewModelCopy> allRelevantPosts = null;
+                IEnumerable<PostViewModelCopy> allRelevantPosts =(IEnumerable < PostViewModelCopy >) PostService.GetAllPosts(e.NewTextValue);
                 
                 if (allRelevantPosts == null)
                 {
-                    
+                   listView.ItemsSource = null;
+
                 }
                 else
                 {
-                    listView.ItemsSource = null;
+                    listView.ItemsSource = allRelevantPosts;
                 }
             }
         }
