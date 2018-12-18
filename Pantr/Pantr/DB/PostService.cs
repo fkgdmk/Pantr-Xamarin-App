@@ -19,30 +19,37 @@ namespace Pantr.DB
          * Zipcode-parameteret har en default værdi der er tom, så vi ved om vi skal kalde vores API metode med eller uden parameter.
          * Statisk, så vi ikke behøver at lave en instans af PostService
         */
-        public static async Task<IEnumerable<PostViewModelCopy>> GetAllPosts(String zipcode="")
+        public async static Task<ObservableCollection<PostViewModelCopy>> GetAllPosts(String zipcode="")
         {
             Uri uri = null;
             if (zipcode.Equals(""))
             {
+                //Laver URI'en til get metoden uden parameter
                 uri = new Uri(string.Format("http://10.0.2.2:50001/api/posts"));
             }
             else
             {
+                //Laver URI'en til get metoden uden parameter
                 uri = new Uri(string.Format("http://10.0.2.2:50001/api/posts/{0}",zipcode));
 
             }
             HttpClient client = new HttpClient();
-            IEnumerable<PostViewModelCopy> post = null;
+            ObservableCollection<PostViewModelCopy> post = null;
+
+            //Laver API-kald
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
+                //content (resultatet fra vores APIkald) bliver de-serialiseret
+                // fra JSon til en observable collection
                 var content = await response.Content.ReadAsStringAsync();
-                post = JsonConvert.DeserializeObject< IEnumerable<PostViewModelCopy>>(content);
+                post = JsonConvert.DeserializeObject<ObservableCollection<PostViewModelCopy>>(content);
             }
             else
             {
                 throw new Exception("Ingen forbindelse til api");
             }
+            //observable collection bliver returneret
             return post;
         }
 

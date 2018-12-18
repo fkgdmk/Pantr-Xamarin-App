@@ -51,7 +51,7 @@ namespace Pantr
         //Når der trykkes på Rediger knappen sendes brugeren videre til EditPost siden
         private async void edit(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new EditPost(post));
+           // await Navigation.PushModalAsync(new EditPost(post));
         }
 
         //Sletter pantopslaget
