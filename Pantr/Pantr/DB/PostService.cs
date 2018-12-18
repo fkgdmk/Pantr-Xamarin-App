@@ -14,7 +14,12 @@ namespace Pantr.DB
 {
     public class PostService
     {
-        public static async Task<IEnumerable<PostViewModelCopy>> GetAllPosts(String zipcode)
+        /**
+         * Henter via et API kald til vores Web API en IEnumerable-liste af PostViewModel-typen. 
+         * Zipcode-parameteret har en default værdi der er tom, så vi ved om vi skal kalde vores API metode med eller uden parameter.
+         * Statisk, så vi ikke behøver at lave en instans af PostService
+        */
+        public static async Task<IEnumerable<PostViewModelCopy>> GetAllPosts(String zipcode="")
         {
             Uri uri = null;
             if (zipcode.Equals(""))
@@ -38,8 +43,6 @@ namespace Pantr.DB
             {
                 throw new Exception("Ingen forbindelse til api");
             }
-
-
             return post;
         }
 

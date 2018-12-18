@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Pantr.Models
 {
-    public class PostModel
+    public class PostViewModelCopy
     {
         public string Material { get; set; }
         public string Quantity { get; set; }
