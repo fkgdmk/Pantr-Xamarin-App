@@ -131,18 +131,17 @@ namespace Pantr
             // hvilket som bekendt er længden på de danske postnumre
             if (e.NewTextValue.Length == 4)
             {
+                IsBusy = true;
                 //Henter alle posts med det specifikke postnummer
                 getAllPostsFromZip(e.NewTextValue);
-
-                //TJekker om listen er tom  
-                if (AllPosts.Count != 0)
-                {
-                    listView.ItemsSource = AllPosts;
-                }
-                else
-                {
-                    listView.ItemsSource = null;
-                }
+               
+                listView.ItemsSource = AllPosts;
+                IsBusy = false;
+            }
+            else if(e.NewTextValue.Length == 0)
+            {
+                getAllPosts();
+                listView.ItemsSource = AllPosts;
             }
         }
 
