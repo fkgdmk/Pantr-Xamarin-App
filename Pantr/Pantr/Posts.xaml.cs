@@ -73,9 +73,10 @@ namespace Pantr
 
                 // vi caster vores objekt til et PostViewModel
                 var selection = e.SelectedItem as PostViewModelCopy;
-                var claimed = await DisplayAlert("Du vil gerne hente", "post med id " + selection.Id + " som har adressen: " + selection.Address, "OK", "Nej!");
+                bool claimed = await DisplayAlert("Du vil gerne hente", "post med id " + selection.Id + " som har adressen: " + selection.Address, "OK", "Nej!");
                 if (claimed)
                 {
+                    await Navigation.PushModalAsync(new ViewPost(selection, false));
                 }
                 else
                 {

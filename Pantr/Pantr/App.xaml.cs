@@ -10,9 +10,8 @@ namespace Pantr
         public App()
         {
             InitializeComponent();
-            MainPage = new NavigationPage(new Posts());
+            //MainPage = new NavigationPage(new Posts());
 
-            /**
             if (Current.Properties.ContainsKey("Username"))
             {
                 MainPage = new NavigationPage(new Posts());
@@ -21,12 +20,12 @@ namespace Pantr
             {
                 MainPage = new NavigationPage(new Login());
             }
-    */
+
         }
 
         protected override void OnStart()
         {
-            
+
         }
 
         protected override void OnSleep()

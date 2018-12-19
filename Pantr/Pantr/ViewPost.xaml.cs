@@ -11,6 +11,7 @@ namespace Pantr
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ViewPost : ContentPage
 	{
+        PostViewModelCopy post;
 
         //Da metoder der udfylder rest kald altid er asynkrone skal metoden være async
         //protected override async void OnAppearing()
@@ -30,9 +31,10 @@ namespace Pantr
         public ViewPost (PostViewModelCopy post, bool isOwnPost)
         { 
             //afmeld knappen vises kun hvis isOwnPost er true
-            if (!isOwnPost) afmeldButton.IsEnabled = false;
-            BindingContext = post;
             InitializeComponent();
+            if (!isOwnPost) afmeldButton.IsEnabled = false;
+            this.post = post;
+            BindingContext = post;
         }
 
 
@@ -51,14 +53,14 @@ namespace Pantr
         //Når der trykkes på Rediger knappen sendes brugeren videre til EditPost siden
         private async void edit(object sender, EventArgs e)
         {
-           // await Navigation.PushModalAsync(new EditPost(post));
+          await Navigation.PushModalAsync(new EditPost(post));
         }
 
         //Sletter pantopslaget
         private async void submit_Clicked(object sender, EventArgs e)
         {
             PostService postService = new PostService();
-            bool response = await postService.DeletePost(5);
+            bool response = await postService.DeletePost(this.post.Id);
 
             //DeletePost returnere en true hvis pantopslaget blev slettet og og false hvis der skete en fejl
             if (response)
