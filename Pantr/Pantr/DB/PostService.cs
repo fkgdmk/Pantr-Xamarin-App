@@ -53,7 +53,7 @@ namespace Pantr.DB
             return post;
         }
 
-        public static async Task<PostViewModelCopy> GetUsersPost(int id)
+        public async Task<PostViewModelCopy> GetUsersPost(int id)
         {
             HttpClient client = new HttpClient();
             PostViewModelCopy post = null;

@@ -18,13 +18,22 @@ namespace Pantr
     {
         //En observable collection der holder alle posts der skal vises i viewets "listView"-variabel 
         public ObservableCollection<PostViewModelCopy> AllPosts { get; set; }
-
+        PostViewModelCopy post;
         public Posts()
         {
-            InitializeComponent();   
+            InitializeComponent();
+
                 try
                 {   // Sætter AllPosts-propertien til en observable collection med alle ikke-tagede opslag
-                    getAllPosts();
+                    getUsersPost();
+                    if (post != null) 
+                    {
+                        viewPost.IsVisible = true;
+                    } else
+                    {
+                        createPost.IsVisible = true;
+                    }
+                        getAllPosts();
                     // sætter vores listview i viewet til at vise alle posts
                     listView.ItemsSource = AllPosts;
                 }
@@ -35,6 +44,14 @@ namespace Pantr
                     DisplayAlert("Fejl", "Ingen forbindelse til internettet", "Forstået");
                     Console.WriteLine(e.StackTrace);
                 }
+        }
+
+        private async void getUsersPost ()
+        {
+            PostService postService = new PostService();
+
+            post = await postService.GetUsersPost(5);
+
         }
 
         //Metode til at hente alle posts og sætter AllPosts-propertien tildette 
@@ -106,6 +123,20 @@ namespace Pantr
                     listView.ItemsSource = null;
                 }
             }
+        }
+
+        private void CreatePost_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new CreatePost());
+        }
+
+        private void ViewPost_Clicked(object sender, EventArgs e)
+        {
+        }
+
+        private void ReservationsBtn_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new ViewReservations());   
         }
     }
 }
