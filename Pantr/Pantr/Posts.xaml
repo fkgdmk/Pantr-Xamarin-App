@@ -2,8 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Pantr.Posts"
-             Title="Pantopslag"
+             Title="Alle ledige opslag"
              Padding="20,5,20,20">
+    
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" Margin="0,0,0,0" Padding="0,0,0,0">
             <Entry x:Name="zipcodeSearch" Keyboard="Numeric" IsTextPredictionEnabled="True" Placeholder="Søg postnummer" FontSize="14" TextChanged="ZipcodeSearch_TextChanged" />
@@ -20,10 +21,10 @@
                                     </StackLayout>
                                     <StackLayout Orientation="Horizontal">
                                         <Image WidthRequest="10" Source="map.png" Margin="0,-2,0,-2"/>
-                                        <Label Text="{Binding Address}" FontSize="Small" Margin="0,-2,0,-2"/>
+                                        <Label Text="{Binding Address}" FontSize="Micro" Margin="0,-2,0,-2"/>
                                     </StackLayout>
                                     <StackLayout Orientation="Horizontal">
-                                        <Image WidthRequest="10" Source="recyc.png" Opacity="0" Margin="0,-2,0,-2"/>
+                                        <Image WidthRequest="10" Source="calender.png" Margin="0,-2,0,-2"/>
                                         <Label Text="{Binding Date}" FontSize="Micro" Margin="0,-2,0,-2"/>
                                     </StackLayout>
                                     <StackLayout Orientation="Horizontal">
