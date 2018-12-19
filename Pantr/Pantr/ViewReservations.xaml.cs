@@ -14,14 +14,14 @@ namespace Pantr
         //vises eller fjernes fra viewet  efterhånden som de bliver tilføjet eller fjernet fra listen
 
         //ObservableCollection<PostViewModelCopy> reservations = new ObservableCollection<PostViewModelCopy>();
-        public ObservableCollection<PostViewModelCopy> reservations { get; set; }
+        public ObservableCollection<PostViewModel> reservations { get; set; }
 
         public ViewReservations ()
 		{
-			InitializeComponent ();
-            reservations = new ObservableCollection<PostViewModelCopy>();
-
+            InitializeComponent();
             //binder listviewet på reservations
+            reservations = new ObservableCollection<PostViewModel>();
+
             ReservationsView.ItemsSource = reservations;
         }
 
@@ -30,13 +30,13 @@ namespace Pantr
         protected async override void OnAppearing()
         {
             base.OnAppearing();
+            reservations.Clear();
             // Userid hardcodes til 1 for at undgå at skulle logge ind for at se om det virker
-            //if (!Application.Current.Properties.ContainsKey("ID"))
-            //{
-            //    await DisplayAlert("Hov du!", "Der er vidst sket en fejl\nLuk appen ned og log ind igen", "OK");
-            //}
-            //var userId = (int)Application.Current.Properties["ID"];
-            var userId = 1;
+            if (!Application.Current.Properties.ContainsKey("ID"))
+            {
+                await DisplayAlert("Hov du!", "Der er vidst sket en fejl\nLuk appen ned og log ind igen", "OK");
+            }
+            var userId = (int)Application.Current.Properties["ID"];
 
             TransactionService transactionService = new TransactionService();
 
@@ -59,7 +59,7 @@ namespace Pantr
 
             //ternary operator som sætter en postviewmodelcopy til null hvis listen er null, ellers sætter den selectedpost til
             //det samme som det listitem fra viewet
-            PostViewModelCopy selectedPost = reservedPosts == null ? null : reservedPosts.SelectedItem as PostViewModelCopy;
+            PostViewModel selectedPost = reservedPosts == null ? null : reservedPosts.SelectedItem as PostViewModel;
 
             //til sidst skiftes der side til viewPost som viser dne valgte post
             await Navigation.PushAsync(new ViewPost(selectedPost, 1));

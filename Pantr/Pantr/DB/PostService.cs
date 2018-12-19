@@ -19,7 +19,7 @@ namespace Pantr.DB
          * Zipcode-parameteret har en default værdi der er tom, så vi ved om vi skal kalde vores API metode med eller uden parameter.
          * Statisk, så vi ikke behøver at lave en instans af PostService
         */
-        public async static Task<ObservableCollection<PostViewModelCopy>> GetAllPosts(String zipcode="")
+        public async static Task<ObservableCollection<PostViewModel>> GetAllPosts(String zipcode="")
         {
             Uri uri = null;
             if (zipcode.Equals(""))
@@ -34,7 +34,7 @@ namespace Pantr.DB
 
             }
             HttpClient client = new HttpClient();
-            ObservableCollection<PostViewModelCopy> post = null;
+            ObservableCollection<PostViewModel> post = null;
 
             //Laver API-kald
             var response = await client.GetAsync(uri);
@@ -43,7 +43,7 @@ namespace Pantr.DB
                 //content (resultatet fra vores APIkald) bliver de-serialiseret
                 // fra JSon til en observable collection
                 var content = await response.Content.ReadAsStringAsync();
-                post = JsonConvert.DeserializeObject<ObservableCollection<PostViewModelCopy>>(content);
+                post = JsonConvert.DeserializeObject<ObservableCollection<PostViewModel>>(content);
             }
             else
             {
@@ -53,20 +53,23 @@ namespace Pantr.DB
             return post;
         }
 
-        public async Task<PostViewModelCopy> GetUsersPost(int id)
+        public async Task<PostViewModel> GetUsersPost(int id)
         {
             HttpClient client = new HttpClient();
-            PostViewModelCopy post = null;
+            PostViewModel post = null;
 
-            //Idet skal udskiftes med brugers id
             var uri = new Uri(string.Format("http://10.0.2.2:50001/api/post/getuserspost/" + id));
 
+            //Laver rest kald 
             var response = await client.GetAsync(uri);
 
+            //Tjekker om responsen er succesfuld
             if (response.IsSuccessStatusCode)
             {
+                //Uddrager indholdet fra responsen
                 var content = await response.Content.ReadAsStringAsync();
-                post = JsonConvert.DeserializeObject<PostViewModelCopy>(content);
+                //Deserializer indholdet
+                post = JsonConvert.DeserializeObject<PostViewModel>(content);
             } 
 
             return post;
@@ -77,20 +80,24 @@ namespace Pantr.DB
             PostViewModel post = null;
 
             var uri = new Uri(string.Format("http://10.0.2.2:50001/api/post/9"));
-
+            
+            //Laver rest kald 
             var response = await client.GetAsync(uri);
 
-            if(response.IsSuccessStatusCode)
+            //Tjekker om responsen er succesfuld
+            if (response.IsSuccessStatusCode)
             {
+                //Uddrager indholdet fra responsen
                 var content = await response.Content.ReadAsStringAsync();
+                //Deserializer indholdet
                 post = JsonConvert.DeserializeObject<PostViewModel>(content);
             }
             return post;
         }
 
-        public async Task<bool> ClaimPost(JObject user)
+        public async Task<bool> ClaimPost(int userId, JObject user)
         {
-            var uri = new Uri(string.Format("http://10.0.2.2:50001/api/claimpost/9"));
+            var uri = new Uri(string.Format("http://10.0.2.2:50001/api/claimpost/" + userId));
             HttpResponseMessage response = null;
             bool postClaimed = false;
 
@@ -98,7 +105,6 @@ namespace Pantr.DB
             {
                 var json = JsonConvert.SerializeObject(user);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
                 response = await client.PostAsync(uri, content);
 

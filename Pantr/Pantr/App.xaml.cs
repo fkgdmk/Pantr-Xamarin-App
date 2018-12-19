@@ -1,6 +1,8 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Pantr.Models;
+using Pantr.DB;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Pantr
@@ -10,20 +12,20 @@ namespace Pantr
         public App()
         {
             InitializeComponent();
-            //MainPage = new NavigationPage(new Posts());
+            //Current.Properties["Username"] = "admin";
+            //Current.Properties["Id"] = 1;
 
+            if (Current.Properties.ContainsKey("Username"))
+            {
                 MainPage = new NavigationPage(new Posts());
-            //if (Current.Properties.ContainsKey("Username"))
-            //{
-            //}
-            //else
-            //{
-            //    MainPage = new NavigationPage(new Login());
-            //}
-
+            }
+            else
+            {
+                MainPage = new NavigationPage(new Login());
+            }
         }
 
-        protected override void OnStart()
+        protected async override void OnStart()
         {
 
         }

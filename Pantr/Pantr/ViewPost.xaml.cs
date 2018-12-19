@@ -11,35 +11,26 @@ namespace Pantr
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ViewPost : ContentPage
     {
-        PostViewModelCopy post;
-
-        //Da metoder der udfylder rest kald altid er asynkrone skal metoden være async
-        //protected override async void OnAppearing()
-        //{
-        //    //Henter brugerens pantopslag og sætter BindingContext til objektet
-
-        //    PostViewModelCopy post = await PostService.GetUsersPost(5);
-        //    BindingContext = post;
-
-        //    InitializeComponent();
-        //    //Rediger knappen vises kun hvis pantopslaget ikke er blevet taget
-        //    //Det skal ikke være muligt at redigere et pantopslag der allerede er taget
-        //    editBtn.IsVisible = !post.Claimed;
-        //}
+        PostViewModel post;
 
         //denne construktor bruges fra ViewReservations så afmeld knappen kun vises hvis isOwnPost = true
-        public ViewPost(PostViewModelCopy post, int viewType)
+        public ViewPost(PostViewModel post, int viewType)
         {
             //afmeld knappen vises kun hvis isOwnPost er true
             InitializeComponent();
+
+            //Bestemmer hvilken knap der skal vises baseret på hivlken type opslag det er
+            //HVis det er en panthenter der trykker på et pantopslag i sine reserveret pantopslag
             if (viewType == 1) {
                 afmeldButton.IsVisible = true;
-
+            //Hvis det er brugerens eget pantopslag
             } else if (viewType == 2)
             {
                 cancelBtn.IsVisible = true;
                 editBtn.IsVisible = true;
-            } else
+            //HVis det er en panthenter der trykker på et pantopslag i listen over pantopslag
+            }
+            else
             {
                 reserverBtn.IsVisible = true;
             }
@@ -89,7 +80,7 @@ namespace Pantr
             TransactionService transactionService = new TransactionService();
 
             //caster bindingcontexten (som sættes i constructoren) til en postviewmodelcopy
-            var cancelledPost = (PostViewModelCopy)BindingContext;
+            var cancelledPost = (PostViewModel)BindingContext;
 
             //Instantierer et jobject som bruges i transactionservice med post og panter id
             //id'erne bruges til at afmelde den rette post

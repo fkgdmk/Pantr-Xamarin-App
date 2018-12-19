@@ -11,9 +11,9 @@ namespace Pantr
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class EditPost : ContentPage
 	{
-        PostViewModelCopy post;
+        PostViewModel post;
            
-        public EditPost(PostViewModelCopy post)
+        public EditPost(PostViewModel post)
         {
             InitializeComponent();
             this.post = post;

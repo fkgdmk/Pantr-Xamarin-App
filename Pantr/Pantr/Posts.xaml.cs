@@ -17,58 +17,79 @@ namespace Pantr
     public partial class Posts : ContentPage
     {
         //En observable collection der holder alle posts der skal vises i viewets "listView"-variabel 
-        public ObservableCollection<PostViewModelCopy> AllPosts { get; set; }
-        PostViewModelCopy post;
+        public ObservableCollection<PostViewModel> AllPosts { get; set; }
+        public PostViewModel Post { get; set; }
+
         public Posts()
         {
             InitializeComponent();
-
-                try
-                {   // Sætter AllPosts-propertien til en observable collection med alle ikke-tagede opslag
-                    getUsersPost();
-                    if (post != null) 
-                    {
-                        viewPost.IsVisible = true;
-                    } else
-                    {
-                        createPost.IsVisible = true;
-                    }
-                        getAllPosts();
-                    // sætter vores listview i viewet til at vise alle posts
-                    listView.ItemsSource = AllPosts;
-                }
-                catch (Exception e)
-                {
-                    //Laver en popup hvis der er en fejl med dette
-                    //  hvilket normalt skyldes en database fejl
-                    DisplayAlert("Fejl", "Ingen forbindelse til internettet", "Forstået");
-                    Console.WriteLine(e.StackTrace);
-                }
         }
 
-        private async void getUsersPost ()
+        protected async override void OnAppearing()
+        {
+            //PostViewModelCopy post = (PostViewModelCopy)Application.Current.Properties["Post"];
+            //getUsersPost();
+
+            try
+            {   // Sætter AllPosts-propertien til en observable collection med alle ikke-tagede opslag
+                PostService postService = new PostService();
+                if (!Application.Current.Properties.ContainsKey("ID"))
+                {
+                    await DisplayAlert("Hov du!", "Der er vidst sket en fejl\nLuk appen ned og log ind igen", "OK");
+                }
+                var userId = (int)Application.Current.Properties["ID"];
+                //Henter brugers pantopslag
+                Post = await postService.GetUsersPost(userId);
+
+                if (Post != null)
+                {
+                    viewPost.IsVisible = true;
+                }
+                else
+                {
+                    createPost.IsVisible = true;
+                }
+                getAllPosts();
+                // sætter vores listview i viewet til at vise alle posts
+                listView.ItemsSource = AllPosts;
+            }
+            catch (Exception e)
+            {
+                //Laver en popup hvis der er en fejl med dette
+                //  hvilket normalt skyldes en database fejl
+                await DisplayAlert("Fejl", "Ingen forbindelse til internettet", "Forstået");
+                Console.WriteLine(e.StackTrace);
+            }
+        }
+
+
+        private async void getUsersPost()
         {
             PostService postService = new PostService();
-
-            post = await postService.GetUsersPost(5);
-
+            Post = new PostViewModel();
+            if (!Application.Current.Properties.ContainsKey("ID"))
+            {
+                await DisplayAlert("Hov du!", "Der er vidst sket en fejl\nLuk appen ned og log ind igen", "OK");
+            }
+            var userId = (int)Application.Current.Properties["ID"];
+            Post = await postService.GetUsersPost(userId);
         }
 
         //Metode til at hente alle posts og sætter AllPosts-propertien tildette 
-        protected async void getAllPosts()
+        private async void getAllPosts()
         {
-            AllPosts = new ObservableCollection<PostViewModelCopy>();
+            AllPosts = new ObservableCollection<PostViewModel>();
             var allPosts = await PostService.GetAllPosts();
             foreach (var item in allPosts)
             {
                 AllPosts.Add(item);
             }
         }
-       
+
         //Metode til at hente alle posts med et bestemt postnummer og sætter AllPosts-propertien til dette 
         protected async void getAllPostsFromZip(string zipcode)
         {
-            AllPosts = new ObservableCollection<PostViewModelCopy>();
+            AllPosts = new ObservableCollection<PostViewModel>();
             var allPosts = await PostService.GetAllPosts(zipcode);
             foreach (var item in allPosts)
             {
@@ -89,8 +110,8 @@ namespace Pantr
                 ((ListView)sender).SelectedItem = null;
 
                 // vi caster vores objekt til et PostViewModel
-                var selection = e.SelectedItem as PostViewModelCopy;
-                bool claimed = await DisplayAlert("Du vil gerne hente", "post med id " + selection.Id + " som har adressen: " + selection.Address, "OK", "Nej!");
+                var selection = e.SelectedItem as PostViewModel;
+                bool claimed = await DisplayAlert("Pantopslag", "Vil du se pantopslag?", "Ja", "Nej");
                 if (claimed)
                 {
                     await Navigation.PushAsync(new ViewPost(selection, 3));
@@ -112,7 +133,7 @@ namespace Pantr
             {
                 //Henter alle posts med det specifikke postnummer
                 getAllPostsFromZip(e.NewTextValue);
-                
+
                 //TJekker om listen er tom  
                 if (AllPosts.Count != 0)
                 {
@@ -132,11 +153,12 @@ namespace Pantr
 
         private void ViewPost_Clicked(object sender, EventArgs e)
         {
+            Navigation.PushAsync(new ViewPost(Post, 2));
         }
 
         private void ReservationsBtn_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new ViewReservations());   
+            Navigation.PushAsync(new ViewReservations());
         }
     }
 }

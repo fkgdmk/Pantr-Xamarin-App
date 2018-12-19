@@ -3,16 +3,16 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Pantr.Posts"
-             Title="Alle ledige opslag"
+             Title="Pantr"
              Padding="20,5,20,20">
 
     <ContentPage.Content>
 
         <StackLayout Orientation="Vertical" Margin="0,0,0,0" Padding="0,0,0,0">
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                <Button Text="Opret" IsVisible="False" x:Name="createPost" Clicked="CreatePost_Clicked"></Button>
-                <Button Text="Opret Pantopslag" IsVisible="False" HorizontalOptions="Center" VerticalOptions="Center" x:Name="viewPost" Clicked="ViewPost_Clicked"></Button>
-                <Button Text="Reservationer" IsVisible="True" x:Name="reservationsBtn" Clicked="ReservationsBtn_Clicked"></Button>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" HeightRequest="30">
+                <Button Text="Opret" IsVisible="False" x:Name="createPost" Clicked="CreatePost_Clicked" FontSize="8" HeightRequest="30"></Button>
+                <Button Text="Mit Pantopslag" IsVisible="False" HorizontalOptions="Center" VerticalOptions="Center" FontSize="8" x:Name="viewPost" Clicked="ViewPost_Clicked"></Button>
+                <Button Text="Reservationer" IsVisible="True" x:Name="reservationsBtn" Clicked="ReservationsBtn_Clicked" FontSize="8" HeightRequest="30"></Button>
             </StackLayout>
             <Entry x:Name="zipcodeSearch" Keyboard="Numeric" IsTextPredictionEnabled="True" Placeholder="Søg postnummer" FontSize="14" TextChanged="ZipcodeSearch_TextChanged" />
             <ListView x:Name="listView" RowHeight="85" ItemSelected="ListView_ItemSelected" SeparatorColor="Black" IsPullToRefreshEnabled="True">

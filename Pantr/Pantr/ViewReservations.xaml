@@ -38,14 +38,13 @@
                                                Source="map.png" 
                                                Margin="0,-2,0,-2"/>
                                         <Label Text="{Binding Address}" 
-                                               FontSize="Small" 
+                                               FontSize="Micro" 
                                                Margin="0,-2,0,-2"/>
                                     </StackLayout>
 
                                     <StackLayout Orientation="Horizontal">
                                         <Image WidthRequest="10" 
-                                               Source="recyc.png" 
-                                               Opacity="0" 
+                                               Source="calender.png" 
                                                Margin="0,-2,0,-2"/>
                                         <Label Text="{Binding Date}" 
                                                FontSize="Micro" 
@@ -57,10 +56,14 @@
                                                Source="time.png" 
                                                Margin="0,-2,0,-2"/>
                                         <StackLayout Orientation="Horizontal">
-                                            <Label Text="Kl "/>
-                                            <Label Text="{Binding StartTime}"/>
-                                            <Label Text=" - "/>
-                                            <Label Text="{Binding EndTime}"/>
+                                            <Label Text="Kl "
+                                                   FontSize="Micro"/>
+                                            <Label Text="{Binding StartTime}"
+                                                   FontSize="Micro"/>
+                                            <Label Text=" - "
+                                                   FontSize="Micro"/>
+                                            <Label Text="{Binding EndTime}"
+                                                   FontSize="Micro"/>
                                         </StackLayout>
                                     </StackLayout>
                                 </StackLayout>

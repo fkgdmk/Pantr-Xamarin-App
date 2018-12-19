@@ -14,9 +14,9 @@ namespace Pantr.DB
     class TransactionService
     {
         //Metode som returnerer en observablecollection(liste) af ens egne reservationer
-        public async Task<ObservableCollection<PostViewModelCopy>> GetOwnReservations(int id)
+        public async Task<ObservableCollection<PostViewModel>> GetOwnReservations(int id)
         {
-            ObservableCollection<PostViewModelCopy> fromDb = new ObservableCollection<PostViewModelCopy>();
+            ObservableCollection<PostViewModel> fromDb = new ObservableCollection<PostViewModel>();
 
             var controllerName = "transaction/users";
             var basicClientApi = string.Format("http://10.0.2.2:50001/api/{0}/{1}", controllerName, id);
@@ -39,7 +39,7 @@ namespace Pantr.DB
                         var rawResponse = await response.Content.ReadAsStringAsync();
 
                         //deserializer til en liste(observablecollection<postviewmodel)
-                        fromDb = JsonConvert.DeserializeObject<ObservableCollection<PostViewModelCopy>>(rawResponse.ToString());
+                        fromDb = JsonConvert.DeserializeObject<ObservableCollection<PostViewModel>>(rawResponse.ToString());
                     }
                 }
             }
