@@ -1,10 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Pantr.ViewPost">
+             x:Class="Pantr.ViewPost"
+             Title="Pantopslag"
+             Padding="20,5,20,20">
     <ContentPage.Content Padding="20, 20, 20, 20">
         <StackLayout>
-            <Image HorizontalOptions="End" x:Name="editBtn" WidthRequest="20" HeightRequest="20" Source="pencil.png" Margin="0, 5, 5, 0">
+            <Image HorizontalOptions="End" x:Name="editBtn" IsVisible="False" WidthRequest="20" HeightRequest="20" Source="pencil.png" Margin="0, 5, 5, 0">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer
                         Tapped="edit"
@@ -34,11 +36,13 @@
                 <Label VerticalOptions="Center" HorizontalOptions="Center" Text="Status: "/>
                 <Label VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding Claimed}"/>
             </StackLayout>
-            <Button Text="Annuller" x:Name="submit" Clicked="submit_Clicked" HorizontalOptions="Center" Margin="0, 40, 0, 0" WidthRequest="120"></Button>
+            <Button Text="Annuller" x:Name="cancelBtn" IsVisible="False" Clicked="CancelBtn_Clicked" HorizontalOptions="Center" Margin="0, 40, 0, 0" WidthRequest="120"></Button>
             <Button Text="Afmeld"
                     x:Name="afmeldButton"
                     Clicked="AfmeldButton_Clicked"
-                    HorizontalOptions="End"/>
+                    HorizontalOptions="End"
+                    IsVisible="False"/>
+            <Button Text="Reserver" IsVisible="False" x:Name="reserverBtn" Clicked="ReserverBtn_Clicked" HorizontalOptions="Center" Margin="0, 40, 0, 0" WidthRequest="120"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

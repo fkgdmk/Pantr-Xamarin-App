@@ -12,14 +12,14 @@ namespace Pantr
             InitializeComponent();
             //MainPage = new NavigationPage(new Posts());
 
-            if (Current.Properties.ContainsKey("Username"))
-            {
                 MainPage = new NavigationPage(new Posts());
-            }
-            else
-            {
-                MainPage = new NavigationPage(new Login());
-            }
+            //if (Current.Properties.ContainsKey("Username"))
+            //{
+            //}
+            //else
+            //{
+            //    MainPage = new NavigationPage(new Login());
+            //}
 
         }
 

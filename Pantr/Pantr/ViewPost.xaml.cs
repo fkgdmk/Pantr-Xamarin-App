@@ -8,9 +8,9 @@ using Newtonsoft.Json.Linq;
 
 namespace Pantr
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ViewPost : ContentPage
-	{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class ViewPost : ContentPage
+    {
         PostViewModelCopy post;
 
         //Da metoder der udfylder rest kald altid er asynkrone skal metoden være async
@@ -28,11 +28,22 @@ namespace Pantr
         //}
 
         //denne construktor bruges fra ViewReservations så afmeld knappen kun vises hvis isOwnPost = true
-        public ViewPost (PostViewModelCopy post, bool isOwnPost)
-        { 
+        public ViewPost(PostViewModelCopy post, int viewType)
+        {
             //afmeld knappen vises kun hvis isOwnPost er true
             InitializeComponent();
-            if (!isOwnPost) afmeldButton.IsEnabled = false;
+            if (viewType == 1) {
+                afmeldButton.IsVisible = true;
+
+            } else if (viewType == 2)
+            {
+                cancelBtn.IsVisible = true;
+                editBtn.IsVisible = true;
+            } else
+            {
+                reserverBtn.IsVisible = true;
+            }
+
             this.post = post;
             BindingContext = post;
         }
@@ -53,11 +64,11 @@ namespace Pantr
         //Når der trykkes på Rediger knappen sendes brugeren videre til EditPost siden
         private async void edit(object sender, EventArgs e)
         {
-          await Navigation.PushModalAsync(new EditPost(post));
+            await Navigation.PushModalAsync(new EditPost(post));
         }
 
         //Sletter pantopslaget
-        private async void submit_Clicked(object sender, EventArgs e)
+        private async void CancelBtn_Clicked(object sender, EventArgs e)
         {
             PostService postService = new PostService();
             bool response = await postService.DeletePost(this.post.Id);
@@ -76,7 +87,7 @@ namespace Pantr
         private async void AfmeldButton_Clicked(object sender, EventArgs e)
         {
             TransactionService transactionService = new TransactionService();
-           
+
             //caster bindingcontexten (som sættes i constructoren) til en postviewmodelcopy
             var cancelledPost = (PostViewModelCopy)BindingContext;
 
@@ -93,5 +104,33 @@ namespace Pantr
             //Hvis den succesfuldt blev annuleret/afmeld sendes vi tilbage til vores reservationer
             if (result) await Navigation.PushAsync(new ViewReservations());
         }
+
+        private void ReserverBtn_Clicked(object sender, EventArgs e)
+        {
+            //PostService service = new PostService();
+
+
+            //JObject user = new JObject
+            //{
+            //    { "PK_User", post. },
+            //    { "Firstname", "Roland" },
+            //    { "Surname", "Kock" },
+            //    { "Phone", 88888888 },
+            //    { "Email", "roland@kock.nu" },
+            //    { "IsPanter", "true" },
+            //    { "FK_Address", 1 },
+            //    { "FK_Login", 4 }
+            //};
+
+            ////bool response = await service.ClaimPost(user);
+
+            //if (response)
+            //{
+            //    DisplayAlert("Reserveret", "Du har reserveret dette pantopslag!", "OK");
+
+
+            //}
+        }
+
     }
 }

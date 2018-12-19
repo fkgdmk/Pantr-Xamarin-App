@@ -76,7 +76,7 @@ namespace Pantr
                 bool claimed = await DisplayAlert("Du vil gerne hente", "post med id " + selection.Id + " som har adressen: " + selection.Address, "OK", "Nej!");
                 if (claimed)
                 {
-                    await Navigation.PushModalAsync(new ViewPost(selection, false));
+                    await Navigation.PushAsync(new ViewPost(selection, 3));
                 }
                 else
                 {

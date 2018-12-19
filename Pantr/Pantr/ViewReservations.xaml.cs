@@ -62,7 +62,7 @@ namespace Pantr
             PostViewModelCopy selectedPost = reservedPosts == null ? null : reservedPosts.SelectedItem as PostViewModelCopy;
 
             //til sidst skiftes der side til viewPost som viser dne valgte post
-            await Navigation.PushAsync(new ViewPost(selectedPost, true));
+            await Navigation.PushAsync(new ViewPost(selectedPost, 1));
         }
     }
 }
