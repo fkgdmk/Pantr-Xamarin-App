@@ -19,7 +19,9 @@ namespace Pantr.DB
             bool registered = false;
 
             var controllerName = "users";
-            var basicClientApi = string.Format("http://10.0.2.2:50001/api/{0}", controllerName);
+            //var basicClientApi = string.Format("http://10.0.2.2:50001/api/{0}", controllerName);
+            var basicClientApi = string.Format(IService.basicApi + "{0}", controllerName);
+
             try
             {
                 //bruger using så resourcerne bliver disposed med det samme

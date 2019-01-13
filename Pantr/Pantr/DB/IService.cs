@@ -5,8 +5,8 @@ using System.Text;
 
 namespace Pantr.DB
 {
-    interface IService
+    public class IService
     {
-        
+        public static readonly string basicApi = "http://192.168.0.108:10000/api/";
     }
 }

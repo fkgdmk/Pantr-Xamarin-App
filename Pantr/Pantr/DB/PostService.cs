@@ -25,13 +25,15 @@ namespace Pantr.DB
             if (zipcode.Equals(""))
             {
                 //Laver URI'en til get metoden uden parameter
-                uri = new Uri(string.Format("http://10.0.2.2:50001/api/posts"));
+                //uri = new Uri(string.Format("http://10.0.2.2:50001/api/posts"));
+                uri = new Uri(string.Format(IService.basicApi + "posts"));
+
             }
             else
             {
                 //Laver URI'en til get metoden uden parameter
-                uri = new Uri(string.Format("http://10.0.2.2:50001/api/posts/{0}",zipcode));
-
+                //uri = new Uri(string.Format("http://10.0.2.2:50001/api/posts/{0}",zipcode));
+                uri = new Uri(string.Format(IService.basicApi + "posts/{0}", zipcode));
             }
             HttpClient client = new HttpClient();
             ObservableCollection<PostViewModel> post = null;
@@ -58,7 +60,9 @@ namespace Pantr.DB
             HttpClient client = new HttpClient();
             PostViewModel post = null;
 
-            var uri = new Uri(string.Format("http://10.0.2.2:50001/api/post/getuserspost/" + id));
+            //var uri = new Uri(string.Format("http://10.0.2.2:50001/api/post/getuserspost/" + id));
+            var uri = new Uri(string.Format(IService.basicApi + "post/getuserspost/" + id));
+
 
             //Laver rest kald 
             var response = await client.GetAsync(uri);
@@ -79,8 +83,10 @@ namespace Pantr.DB
             HttpClient client = new HttpClient();
             PostViewModel post = null;
 
-            var uri = new Uri(string.Format("http://10.0.2.2:50001/api/post/9"));
-            
+            //var uri = new Uri(string.Format("http://10.0.2.2:50001/api/post/9"));
+            var uri = new Uri(string.Format(IService.basicApi + "post/9"));
+
+
             //Laver rest kald 
             var response = await client.GetAsync(uri);
 
@@ -97,7 +103,9 @@ namespace Pantr.DB
 
         public async Task<bool> ClaimPost(int userId, JObject user)
         {
-            var uri = new Uri(string.Format("http://10.0.2.2:50001/api/claimpost/" + userId));
+            //var uri = new Uri(string.Format("http://10.0.2.2:50001/api/claimpost/" + userId));
+            var uri = new Uri(string.Format(IService.basicApi + "claimpost/" + userId));
+
             HttpResponseMessage response = null;
             bool postClaimed = false;
 
@@ -119,9 +127,11 @@ namespace Pantr.DB
 
         public async Task<bool> CreatePostInDb(JObject post)
         {
-            var uri = new Uri(string.Format("http://10.0.2.2:50001/api/post/"));
+            //var uri = new Uri(string.Format("http://10.0.2.2:50001/api/post/"));
+            var uri = new Uri(string.Format(IService.basicApi + "post/"));
 
-             HttpResponseMessage response = null;
+
+            HttpResponseMessage response = null;
             bool postCreated = false;
 
 
@@ -143,7 +153,9 @@ namespace Pantr.DB
 
         public async Task<bool> UpdatePost (int id, JObject updatedPost)
         {
-            var uri = new Uri(string.Format("http://10.0.2.2:50001/api/updatepost/" + id));
+            //var uri = new Uri(string.Format("http://10.0.2.2:50001/api/updatepost/" + id));
+            var uri = new Uri(string.Format(IService.basicApi + "updatepost/" + id));
+
             HttpResponseMessage response = null;
             bool postUpdated = false;
 
@@ -164,7 +176,9 @@ namespace Pantr.DB
 
         public async Task<bool> DeletePost (int id)
         {
-            var uri = new Uri("http://10.0.2.2:50001/api/post/" + id);
+            //var uri = new Uri("http://10.0.2.2:50001/api/post/" + id);
+            var uri = new Uri(IService.basicApi + "post/" + id);
+
             HttpResponseMessage response = null;
             bool postDeleted = false;
 

@@ -19,7 +19,9 @@ namespace Pantr.DB
             ObservableCollection<PostViewModel> fromDb = new ObservableCollection<PostViewModel>();
 
             var controllerName = "transaction/users";
-            var basicClientApi = string.Format("http://10.0.2.2:50001/api/{0}/{1}", controllerName, id);
+            //var basicClientApi = string.Format("http://10.0.2.2:50001/api/{0}/{1}", controllerName, id);
+            var basicClientApi = string.Format(IService.basicApi + "{0}/{1}", controllerName, id);
+
             try
             {
                 //bruger using så resourcer blive disposed med det samme
@@ -57,7 +59,9 @@ namespace Pantr.DB
         {
             bool success = false;
             var controllerName = "transaction";
-            var basicClientApi = string.Format("http://10.0.2.2:50001/api/{0}", controllerName);
+            //var basicClientApi = string.Format("http://10.0.2.2:50001/api/{0}", controllerName);
+            var basicClientApi = string.Format(IService.basicApi + "{0}", controllerName);
+
             try
             {
                 using (var httpClient = new HttpClient())

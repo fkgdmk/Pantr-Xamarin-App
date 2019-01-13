@@ -16,7 +16,8 @@ namespace Pantr.DB
         {
             UserViewModelTest authenticated = null;
             var controllerName = "login";
-            var basicClientApi = string.Format("http://10.0.2.2:50001/api/{0}", controllerName);
+            //var basicClientApi = string.Format("http://10.0.2.2:50001/api/{0}", controllerName);
+            var basicClientApi = string.Format(IService.basicApi+ "{0}", controllerName);
             try
             {
                 //Bruger "using" så httpclient bliver disposed automatisk når det ikke bruges
