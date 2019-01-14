@@ -101,20 +101,20 @@ namespace Pantr.DB
             return post;
         }
 
-        public async Task<bool> ClaimPost(int userId, JObject user)
+        public async Task<bool> ClaimPost(JObject userGiverId)
         {
             //var uri = new Uri(string.Format("http://10.0.2.2:50001/api/claimpost/" + userId));
-            var uri = new Uri(string.Format(IService.basicApi + "claimpost/" + userId));
+            var uri = new Uri(string.Format(IService.basicApi + "claimpost"));
 
             HttpResponseMessage response = null;
             bool postClaimed = false;
 
             using (HttpClient client = new HttpClient())
             {
-                var json = JsonConvert.SerializeObject(user);
+                var json = JsonConvert.SerializeObject(userGiverId);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                response = await client.PostAsync(uri, content);
+                response = await client.PutAsync(uri, content);
 
                 if (response.IsSuccessStatusCode)
                 {

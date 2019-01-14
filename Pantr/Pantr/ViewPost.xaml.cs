@@ -87,8 +87,8 @@ namespace Pantr
             JObject postJObject = new JObject();
             postJObject.Add("postId", cancelledPost.Id);
 
-            //postJObject.Add("panterId", (int)Application.Current.Properties["Id"]);
-            postJObject.Add("panterId", 1);
+            postJObject.Add("panterId", (int)Application.Current.Properties["ID"]);
+            //postJObject.Add("panterId", 1);
 
             bool result = await transactionService.CancelReservation(postJObject);
 
@@ -96,31 +96,26 @@ namespace Pantr
             if (result) await Navigation.PushAsync(new ViewReservations());
         }
 
-        private void ReserverBtn_Clicked(object sender, EventArgs e)
+        private async void ReserverBtn_Clicked(object sender, EventArgs e)
         {
-            //PostService service = new PostService();
+            PostService service = new PostService();
 
+            var claimedPost = (PostViewModel)BindingContext;
 
-            //JObject user = new JObject
-            //{
-            //    { "PK_User", post. },
-            //    { "Firstname", "Roland" },
-            //    { "Surname", "Kock" },
-            //    { "Phone", 88888888 },
-            //    { "Email", "roland@kock.nu" },
-            //    { "IsPanter", "true" },
-            //    { "FK_Address", 1 },
-            //    { "FK_Login", 4 }
-            //};
+            int takerId = (int)Application.Current.Properties["ID"];
+            int giverId = claimedPost.Id;
 
-            ////bool response = await service.ClaimPost(user);
+            JObject userGiverId = new JObject();
+            userGiverId.Add("takerId", takerId);
+            userGiverId.Add("giverId", giverId);
+            userGiverId.Add("postId", claimedPost.Id);
 
-            //if (response)
-            //{
-            //    DisplayAlert("Reserveret", "Du har reserveret dette pantopslag!", "OK");
+            var response = await service.ClaimPost(userGiverId);
 
-
-            //}
+            if (response)
+            {
+                await Navigation.PushAsync(new ViewReservations());
+            }
         }
 
     }
