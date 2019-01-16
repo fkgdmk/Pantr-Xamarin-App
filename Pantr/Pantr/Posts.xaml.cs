@@ -44,6 +44,7 @@ namespace Pantr
                 if (Post != null)
                 {
                     viewPost.IsVisible = true;
+                    createPost.IsVisible = false;
                 }
                 else
                 {

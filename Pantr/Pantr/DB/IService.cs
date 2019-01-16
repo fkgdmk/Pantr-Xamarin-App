@@ -7,6 +7,6 @@ namespace Pantr.DB
 {
     public class IService
     {
-        public static readonly string basicApi = "http://10.0.2.2:50001/api/";
+        public static readonly string basicApi = "http://10.111.176.79:10000/api/";
     }
 }

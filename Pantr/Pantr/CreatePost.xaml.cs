@@ -74,8 +74,10 @@ namespace Pantr
             tbl_Quantity.Add("Sacks", Convert.ToInt32(sacks));
             tbl_Quantity.Add("Cases", Convert.ToInt32(cases));
 
+            int giverId = (int)Application.Current.Properties["ID"];
+
             JObject tbl_Post = new JObject();
-            tbl_Post.Add("FK_Giver", 5);
+            tbl_Post.Add("FK_Giver", giverId);
             tbl_Post.Add("Date", dateObj);
             tbl_Post.Add("StartTime", (int)start);
             tbl_Post.Add("EndTime", (int)end);
@@ -92,6 +94,7 @@ namespace Pantr
                 IsBusy = false;
                 submit.IsVisible = true;
                 await DisplayAlert("Sådan!", "Pantopslag blev oprettet", "OK");
+                await Navigation.PushAsync(new Posts());
             } else
             {
                 await DisplayAlert("Ups", "Der skete en fejl. Prøv igen", "OK");
